@@ -109,6 +109,30 @@ nav#nav a:hover,nav#nav a[aria-current=page]{color:#fff}
 .burger{display:block}nav#nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;padding:10px 5vw;border-bottom:1px solid var(--line)}nav#nav.open{display:flex}.ind,.top>.btn{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 
+.tips{margin:6px 0 4px;gap:8px;font-size:.95rem}
+.mailbox{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:12px 0 4px}
+.mail-addr{min-height:46px;padding:10px 18px;background:var(--surface);border:1px solid var(--line);border-radius:2px;color:#fff;font:600 .95rem var(--font);letter-spacing:.02em;cursor:pointer;word-break:break-all;text-align:left;transition:border-color .25s,box-shadow .25s}
+.mail-addr:hover{border-color:var(--neon);box-shadow:0 0 14px rgba(255,42,42,.4)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:18px 0}.gallery .media{border:1px solid var(--line);border-radius:4px}
+.pager{max-width:1150px;margin:0 auto;padding:0 5vw 24px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+#detail .pager{padding:28px 0 0}
+#detail .news{grid-template-columns:1fr}#detail .lead-story{min-height:360px}
+.pg{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:4px 14px;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:.8rem;text-decoration:none;opacity:.75;transition:opacity .25s,color .25s,border-color .25s,box-shadow .25s}
+.pg:hover{opacity:1;color:#fff;border-color:var(--neon);box-shadow:0 0 14px rgba(255,42,42,.45)}
+.pager .pg:only-child{margin-left:auto}
+.nv{position:relative}
+.nv-slide.swap{animation:swap .45s var(--ease)}
+@keyframes swap{from{opacity:0;transform:translateX(var(--dir,0))}}
+.nv-arrow{position:absolute;z-index:3;top:calc(50% - 16px);display:grid;place-items:center;width:32px;height:32px;padding:0;border-radius:50%;cursor:pointer;background:rgba(10,10,10,.35);border:1px solid rgba(255,255,255,.14);opacity:.45;transition:opacity .25s,background .2s,border-color .2s}
+.nv-arrow svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nv-arrow.prev{left:8px}.nv-arrow.next{right:8px}
+.nv:hover .nv-arrow,.nv-arrow:focus-visible{opacity:.8}
+.nv-arrow:hover{opacity:1;background:rgba(156,0,0,.7);border-color:rgba(255,42,42,.5)}
+@media(hover:none){.nv-arrow{opacity:.6}}
+.nv-dots{display:flex;justify-content:center;gap:4px;margin-top:6px}
+.nv-dots button{width:28px;height:28px;padding:0;background:none;border:0;cursor:pointer;display:grid;place-items:center}
+.nv-dots button::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .2s,width .25s var(--ease),box-shadow .2s}
+.nv-dots button[aria-current]::before{width:22px;border-radius:99px;background:var(--neon);box-shadow:0 0 8px var(--neon)}
 .team{display:block;width:100%;height:auto;margin-top:20px;border:1px solid var(--line);border-radius:3px}
 .foot{padding-bottom:96px}
 body.locked{overflow:hidden}
@@ -266,7 +290,7 @@ main{flex:1 0 auto;width:100%}
         <p class="lead" data-desc style="--d:.55s"></p>
         <div class="row" style="--d:.7s"><a class="btn" href="#proyectos">Ver proyectos</a><a class="btn ghost" href="#servicios">Servicios</a></div>
       </div>
-      <div class="hero-news"><h2>Novedades</h2><div id="news" class="news"></div></div>
+      <div class="hero-news"><h2>Novedades</h2><div id="news" class="news nv-host"></div></div>
       <button class="scroll" data-scroll>Proyectos<i></i></button>
     </div>
     <div class="wrap"><h2>Proyectos actuales</h2><div id="home-projects" class="pgrid"></div></div>
@@ -275,8 +299,7 @@ main{flex:1 0 auto;width:100%}
 
   <section class="view" id="v-presentacion" hidden>
     <div class="wrap"><h1>Presentación</h1>
-      <div class="split"><div><h2>¿Quiénes somos?</h2><p class="statement" data-about1></p></div>
-      <div><h2>Nuestro objetivo</h2><p data-about3></p></div></div>
+      <div><h2>¿Quiénes somos?</h2><p class="statement" data-about1></p></div>
       <h2>Nuestro equipo</h2>
       <p>Las personas que forman Mira Productions.</p>
       <img class="team" src="assets/banercontodos.png" alt="Equipo de Mira Productions">
@@ -292,8 +315,26 @@ main{flex:1 0 auto;width:100%}
   </section>
 
   <section class="view" id="v-contacto" hidden>
-    <div class="wrap narrow"><h1>Contacto</h1><p>Contáctanos por correo o Discord.</p>
-      <div class="contact-direct"><a class="btn" href="mailto:capibarastudios.eventos@gmail.com">Enviar correo</a><a class="btn ghost" href="https://discord.com/invite/kjtfQrsrtH" target="_blank" rel="noopener noreferrer">Contactar por Discord</a></div>
+    <div class="wrap narrow"><h1>Contacto</h1>
+      <p class="statement">Hablemos de tu proyecto.</p>
+      <p>Si tienes una idea para tu evento, necesitas una modificación a tu medida o quieres conocer cómo trabajamos, escríbenos. En Mira Productions atendemos cada solicitud de forma personalizada: revisamos tu propuesta, evaluamos su alcance y te respondemos con un plan claro para llevarla a cabo.</p>
+      <p>Para ayudarte con mayor rapidez, te recomendamos incluir en tu mensaje:</p>
+      <ul class="facts tips">
+        <li>Una descripción de tu idea u objetivo.</li>
+        <li>El servicio que necesitas: modificaciones, creación, logística, producción, postproducción o realización del evento.</li>
+        <li>La fecha estimada y el número aproximado de participantes.</li>
+        <li>Referencias o ejemplos de lo que tienes en mente, si los hay.</li>
+      </ul>
+      <h2>Correo electrónico</h2>
+      <div class="mailbox">
+        <button class="mail-addr" type="button" id="mail-addr" data-copy aria-label="Copiar correo electrónico"></button>
+        <button class="btn" type="button" id="copy-mail" data-copy>Copiar correo</button>
+      </div>
+      <span class="skip" id="copy-status" role="status"></span>
+      <h2>Discord</h2>
+      <p>Si prefieres una conversación más directa, también puedes escribirnos por nuestro servidor de Discord.</p>
+      <div class="contact-direct"><a class="btn ghost" href="https://discord.com/invite/kjtfQrsrtH" target="_blank" rel="noopener noreferrer">Contactar por Discord</a></div>
+      <p class="meta">Responderemos tu mensaje lo antes posible.</p>
     </div>
   </section>
 
@@ -369,6 +410,38 @@ main{flex:1 0 auto;width:100%}
   </div>
 </div>
 <script>
+/* =====================================================================
+   NOVEDADES  (lo que sale en "Novedades" del Inicio)
+   Para agregar una: copia un bloque { ... }, pégalo dentro de la lista
+   y cambia los datos. Las más recientes (por fecha) salen primero.
+
+   id          nombre único, sin espacios (ej. "nuevo-evento")
+   title       título de la tarjeta
+   description texto corto de la tarjeta
+   image       imagen principal (ej. "assets/mi-foto.png")
+   images      (opcional) fotos extra que salen al abrir la novedad
+   text        (opcional) texto largo; separa párrafos con \n
+   date        "AAAA-MM-DD"
+   category    etiqueta: "Studio", "Evento", "Anuncio", "Próximamente"...
+   project     (opcional) id de un proyecto: agrega el botón "Ver proyecto"
+   link        (opcional) botón "Más información" con tu enlace
+   published   true = visible · false = oculta (sin borrarla)
+   featured    true = sale como la tarjeta grande
+   ===================================================================== */
+const NEWS = [
+  { id: "proximamente", title: "????", description: "??? proyecto", image: "assets/eventprox.png", date: "2026-10-14", category: "Próximamente", link: "", published: true, featured: true },
+  { id: "n-reinosmp", title: "ReinoSmp", description: "Inicia el 20 de octubre de 2026. Remake del ReinoSmp de Flex Vega con 56 participantes.", image: "assets/reinosmp.png", date: "2026-10-13", category: "Próximamente", project: "reinosmp", link: "", published: true, featured: false },
+  { id: "n-capybara-games", title: "Capybara Games", description: "Squid Game creado 100% por nosotros desde cero, inspirado en México y con juegos totalmente nuevos.", image: "assets/capybaragames.png", date: "2026-10-12", category: "Próximamente", project: "capybara-games", link: "", published: true, featured: false },
+  { id: "n-salvando-la-navidad", title: "Salvando La Navidad", description: "Hardcore inspirado en el evento de Westcol, de la mano de Bandejita Paisa. Máximo 100 invitados.", image: "assets/salvandonavi.png", date: "2026-10-11", category: "Próximamente", project: "salvando-la-navidad", link: "", published: true, featured: false },
+  { id: "n-capysafio-2", title: "Capysafio 2", description: "Uno de nuestros proyectos más ambiciosos. Próximamente en 2027.", image: "assets/capysafio.png", date: "2026-10-10", category: "Próximamente", project: "capysafio-2", link: "", published: true, featured: false },
+
+  /* EJEMPLO (cámbiale published a true para verla):
+  { id: "novedad-studio", title: "Nuevo setup del studio", description: "Te mostramos cómo quedó.", image: "assets/setup1.png",
+    images: ["assets/setup2.png", "assets/setup3.png"], text: "Primer párrafo.\nSegundo párrafo.",
+    date: "2026-10-15", category: "Studio", link: "", published: true, featured: false },
+  */
+];
+
 const SITE_CONFIG = {
   brand: { name: "Mira Productions", slogan: "Minecraft Events Creators",
     description: "Estudio de Minecraft Java dedicado a la creación de modificaciones propias a tu gusto." },
@@ -384,7 +457,6 @@ const SITE_CONFIG = {
   rights: "© Mira Productions. Todos los derechos reservados.",
   texts: {
     about1: "Mira Productions, un estudio de Minecraft Java dedicado específicamente a la creación de modificaciones propias a tu gusto para cumplir tu objetivo en base a una descripción. Ofrecemos varios tipos, servicios y maneras para cumplir tu idea y plasmarla lo mejor posible para considerar el proyecto como terminado.",
-    about3: "El objetivo de la web es conseguir una presentación, ofrecer un servicio y un contacto para que la gente que necesita ayuda en creación, logística, producción, postproducción y realización del evento pueda tener una forma más sencilla de crear en base a su gusto. También, anunciar diversos anuncios para que la gente de nuestra comunidad y externos estén informados sobre ciertos temas que suceden dentro de la comunidad.",
     launcherText: "Nuestro launcher está próximo a salir. Ya puedes probar la beta para Windows.",
     shopText: "Visita nuestra tienda de Ko-fi."
   },
@@ -399,9 +471,7 @@ const SITE_CONFIG = {
   ],
   contact: { email: "capibarastudios.eventos@gmail.com" },
   launcher: { status: "beta", downloadUrl: "https://launcher.carbonzdev.me/updates/win/Mira-Setup-1.2.9-x64.exe" },
-  news: [
-    { id: "proximamente", title: "????", description: "??? proyecto", image: "assets/eventprox.png", date: "2026-10-14", category: "Próximamente", link: "", published: true, featured: true }
-  ],
+  news: NEWS,
   projects: [
     { id: "mega-hardcore", title: "Mega Hardcore", facts: ["Inspirado en Minecraft Extr3mo", "200 invitados", "Ganador: Yuma"], description: "Evento inspirado en Minecraft Extr3mo. 200 invitados, ganador Yuma.", image: "assets/megahardc.png", category: "Terminados", status: "Finalizado", featured: false },
     { id: "salvando-la-navidad", title: "Salvando La Navidad", facts: ["Hardcore inspirado en el evento de Westcol", "Con Bandejita Paisa", "Máximo 100 invitados"], description: "Evento creado por Mira Productions de la mano de Bandejita Paisa. Hardcore inspirado en el evento de Westcol. 100 invitados máximo.", image: "assets/salvandonavi.png", category: "Próximos", status: "Próximamente", featured: false },
@@ -444,24 +514,47 @@ function init() {
   $$("[data-brand]").forEach(e => e.textContent = C.brand.name);
   $$("[data-slogan]").forEach(e => e.textContent = C.brand.slogan);
   $("[data-desc]").textContent = C.brand.description;
-  const t = C.texts; [["about1", t.about1], ["about3", t.about3], ["launcher-text", t.launcherText], ["shop-text", t.shopText]].forEach(([k, v]) => $(`[data-${k}]`).textContent = v);
+  const t = C.texts; [["about1", t.about1], ["launcher-text", t.launcherText], ["shop-text", t.shopText]].forEach(([k, v]) => $(`[data-${k}]`).textContent = v);
   $("#rights").textContent = C.rights;
+  $("#mail-addr").textContent = C.contact.email;
   const links = NAV.map(([id, l]) => `<a href="#${id}" data-route="${id}">${l}</a>`).join("");
   $("#nav").innerHTML = links + '<span class="ind"></span>'; $("#foot-nav").innerHTML = links;
   const soc = SOCIALS.filter(([k]) => safeUrl(C.links[k]));
   $("#social").innerHTML = soc.map(([k, n]) => `<div class="social">${icon(k)}<h3>${n}</h3><a class="btn" href="${esc(C.links[k])}" ${EXT}>Visitar ${n}</a></div>`).join("");
   $("#services").innerHTML = C.services.map(s => `<details class="svc"><summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${s.icon}"/></svg><h3>${esc(s.title)}</h3><span class="d">${esc(s.description)}</span><i class="plus" aria-hidden="true"></i></summary><div class="more"><a class="btn" href="#contacto">Solicitar información</a></div></details>`).join("");
+  NAV.forEach(([id]) => $("#v-" + id).insertAdjacentHTML("beforeend", pager(id)));
   renderNews(); renderProjects("Todos"); renderLauncher(); renderShop();
   $("#home-projects").innerHTML = projectCards(C.projects.filter(p => p.featured).slice(0, 3));
 }
 
+function pager(from, back) {
+  const k = NAV.findIndex(n => n[0] === from), nx = NAV[k + 1] || NAV[0], last = !NAV[k + 1];
+  return `<div class="pager">${back ? `<a class="pg" href="#${esc(back)}">← Volver</a>` : ""}<a class="pg" href="#${nx[0]}" aria-label="Siguiente página: ${nx[1]}">${nx[1]} ${last ? "↑" : "→"}</a></div>`;
+}
+
+let newsList = [];
 function renderNews() {
-  const list = C.news.filter(n => n.published).sort((a, b) => new Date(b.date) - new Date(a.date));
-  const el = $("#news");
+  newsList = C.news.filter(n => n.published).sort((a, b) => (b.featured - a.featured) || (new Date(b.date) - new Date(a.date)));
+  buildNews($("#news"), newsList);
+}
+function buildNews(el, list) {
   if (!list.length) { el.innerHTML = ""; return; }
-  const main = list.find(n => n.featured) || list[0], rest = list.filter(n => n !== main).slice(0, 3);
-  const meta = n => `<span class="tag">${esc(n.category)}</span>`;
-  el.innerHTML = `<button class="lead-story" data-news="${esc(main.id)}">${img(main.image, main.title)}<div class="body"><i class="dot"></i>${meta(main)}<h3>${esc(main.title)}</h3><p>${esc(main.description)}</p><span class="more-link">Ver detalles</span></div></button><div class="side">${rest.map(n => `<button class="rs" data-news="${esc(n.id)}">${img(n.image, n.title)}<div>${meta(n)}<h3>${esc(n.title)}</h3><p>${esc(n.description)}</p></div></button>`).join("")}</div>`;
+  el._nv = { list, idx: 0 };
+  el.innerHTML = `<div class="nv"><div class="nv-slide" aria-live="polite"></div>${list.length > 1 ? `<button class="nv-arrow prev" data-nv="-1" aria-label="Novedad anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="nv-arrow next" data-nv="1" aria-label="Novedad siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><div class="nv-dots"></div>` : ""}</div>`;
+  paintNews(el, 0);
+}
+function paintNews(el, dir) {
+  const st = el._nv, n = st.list[st.idx], sl = $(".nv-slide", el);
+  sl.style.setProperty("--dir", dir * 40 + "px");
+  sl.innerHTML = `<button class="lead-story" data-news="${esc(n.id)}">${img(n.image, n.title)}<div class="body"><i class="dot"></i><span class="tag">${esc(n.category)}</span><h3>${esc(n.title)}</h3><p>${esc(n.description)}</p><span class="more-link">Ver detalles</span></div></button>`;
+  sl.classList.remove("swap"); void sl.offsetWidth; if (dir && !REDUCE) sl.classList.add("swap");
+  const d = $(".nv-dots", el);
+  if (d) d.innerHTML = st.list.map((_, k) => `<button data-nv-i="${k}" aria-label="Novedad ${k + 1}" ${k === st.idx ? 'aria-current="true"' : ""}></button>`).join("");
+}
+function goNews(el, step, to) {
+  const st = el && el._nv; if (!st || st.list.length < 2) return;
+  const L = st.list.length, old = st.idx; st.idx = to != null ? to : (st.idx + step + L) % L;
+  if (st.idx !== old) paintNews(el, to != null ? (to > old ? 1 : -1) : step);
 }
 
 const projectCards = l => l.length ? l.map(p => `<button class="pcard" data-project="${esc(p.id)}">${img(p.image, p.title)}<div class="body"><span class="tag">${esc(p.status)}</span><h3>${esc(p.title)}</h3><ul class="facts">${p.facts.map(f => `<li>${esc(f)}</li>`).join("")}</ul></div></button>`).join("") : "";
@@ -488,7 +581,8 @@ function showDetail(kind, id) {
   const it = (kind === "noticia" ? C.news.filter(n => n.published) : C.projects).find(x => x.id === id);
   if (!it) return false;
   const url = safeUrl(it.link), backHash = origin && origin !== location.hash.slice(1) && !/^(proyecto|noticia)\//.test(origin) ? origin : (kind === "noticia" ? "inicio" : "proyectos");
-  $("#detail").innerHTML = `<a class="back" href="#${esc(backHash)}">← Volver</a><span class="tag">${esc(it.status || it.category)}</span><h1>${esc(it.title)}</h1><div class="wide">${img(it.image, it.title)}</div><p>${esc(it.description)}</p>${url ? `<a class="btn" href="${esc(url)}" ${EXT}>Más información</a>` : ""}`;
+  $("#detail").innerHTML = `<span class="tag">${esc(it.status || it.category)}</span><h1>${esc(it.title)}</h1><div class="wide">${img(it.image, it.title)}</div><p>${esc(it.description)}</p>${(it.text || "").split("\n").filter(Boolean).map(t => `<p class="muted">${esc(t)}</p>`).join("")}${(it.images || []).length ? `<div class="gallery">${it.images.map(g => img(g, it.title)).join("")}</div>` : ""}${it.project ? `<a class="btn" href="#proyecto/${esc(it.project)}">Ver proyecto</a>` : ""}${url ? `<a class="btn" href="${esc(url)}" ${EXT}>Más información</a>` : ""}${kind === "noticia" ? `<h2>Más novedades</h2><div class="news nv-host" id="detail-news"></div>` : ""}${pager(kind === "noticia" ? "inicio" : "proyectos", backHash)}`;
+  if (kind === "noticia") { const k = newsList.findIndex(n => n.id === it.id); buildNews($("#detail-news"), [...newsList.slice(k + 1), ...newsList.slice(0, k)]); if (!$("#detail-news").innerHTML) $("#detail-news").previousElementSibling.remove(); }
   return true;
 }
 
@@ -518,12 +612,21 @@ function route() {
 addEventListener("hashchange", route);
 
 document.addEventListener("click", e => {
-  const t = e.target.closest("[data-news],[data-project],[data-filter],[data-scroll],.burger"); if (!t) return;
-  if (t.dataset.news) { origin = location.hash.slice(1) || "inicio"; location.hash = "noticia/" + encodeURIComponent(t.dataset.news); }
+  const t = e.target.closest("[data-nv],[data-nv-i],[data-news],[data-project],[data-filter],[data-scroll],.burger"); if (!t) return;
+  if (t.dataset.nv) goNews(t.closest(".nv-host"), +t.dataset.nv);
+  else if (t.dataset.nvI) goNews(t.closest(".nv-host"), 0, +t.dataset.nvI);
+  else if (t.dataset.news) { origin = location.hash.slice(1) || "inicio"; location.hash = "noticia/" + encodeURIComponent(t.dataset.news); }
   else if (t.dataset.project) { origin = location.hash.slice(1) || "inicio"; location.hash = "proyecto/" + encodeURIComponent(t.dataset.project); }
   else if (t.dataset.filter) renderProjects(t.dataset.filter);
   else if ("scroll" in t.dataset) $("#home-projects").scrollIntoView({ behavior: "smooth", block: "center" });
   else { const o = $("#nav").classList.toggle("open"); t.setAttribute("aria-expanded", o); }
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-copy]"); if (!b) return;
+  const txt = C.contact.email, btn = $("#copy-mail");
+  const ok = () => { btn.textContent = "¡Correo copiado!"; $("#copy-status").textContent = "Correo copiado al portapapeles"; clearTimeout(btn._t); btn._t = setTimeout(() => { btn.textContent = "Copiar correo"; $("#copy-status").textContent = ""; }, 2200); };
+  const old = () => { const ta = document.createElement("textarea"); ta.value = txt; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy") ? ok() : alert(txt); } catch (_) { alert(txt); } ta.remove(); };
+  navigator.clipboard && window.isSecureContext ? navigator.clipboard.writeText(txt).then(ok, old) : old();
 });
 document.addEventListener("click", e => { const a = e.target.closest("a[aria-disabled=true]"); if (a) e.preventDefault(); });
 
@@ -534,6 +637,10 @@ document.addEventListener("click", e => { const a = e.target.closest("a[aria-dis
   if (matchMedia("(pointer: fine)").matches && !REDUCE) $(".hero").addEventListener("pointermove", e => { const r = e.currentTarget.getBoundingClientRect(); hb.style.setProperty("--mx", e.clientX - r.left + "px"); hb.style.setProperty("--my", e.clientY - r.top + "px"); });
 })();
 init(); route();
+(function () { let x0 = null, host = null;
+  document.addEventListener("touchstart", e => { host = e.target.closest(".nv-host"); x0 = host ? e.touches[0].clientX : null; }, { passive: true });
+  document.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goNews(host, dx < 0 ? 1 : -1); }, { passive: true });
+})();
 
 
 /* ---- Aparición al hacer scroll ---- */
