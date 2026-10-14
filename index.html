@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mira Productions | Minecraft Events Creators</title>
+<meta name="description" content="Mira Productions: estudio de Minecraft Java dedicado a la creación de modificaciones propias a tu gusto.">
+<meta property="og:title" content="Mira Productions | Minecraft Events Creators">
+<meta property="og:image" content="assets/logoori.png">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="assets/logopage.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;700&display=swap">
+<style>
+:root{--red:#9C0000;--bg:#0a0a0a;--text:#FFFFFF;--line:rgba(255,255,255,.12);--muted:rgba(255,255,255,.7);--surface:rgba(255,255,255,.04);--disp:"Anton",Impact,"Arial Narrow",sans-serif;--font:"Inter",system-ui,"Segoe UI",sans-serif;--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 var(--font);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(60vw 40vw at 90% -10%,rgba(156,0,0,.2),transparent 70%)}
+h1{font:400 clamp(2.6rem,7vw,5rem)/.95 var(--disp);text-transform:uppercase;margin:0 0 .5em}
+h1::after{content:"";display:block;width:64px;height:4px;background:var(--red);margin-top:.3em}
+h2{font:400 clamp(1.6rem,3vw,2.3rem)/1.1 var(--disp);letter-spacing:.02em;margin:2em 0 .6em}
+h3{font:700 1.15rem/1.25 var(--font);margin:.5em 0 .3em}
+a{color:inherit}.muted,.meta{color:var(--muted)}.meta{font-size:.85rem}.skip{position:absolute;left:-999px}.skip:focus{left:8px;top:8px;background:var(--red);padding:8px;z-index:99}
+[hidden]{display:none!important}:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:20px;padding:10px 5vw;background:rgba(10,10,10,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;margin-right:auto;text-decoration:none}.logo img{display:block;width:auto;height:42px;max-width:220px;object-fit:contain}.foot-brand{display:flex;align-items:center;gap:12px}.foot-brand img{width:auto;height:48px;max-width:240px;object-fit:contain}
+nav#nav{position:relative;display:flex}nav#nav a{text-decoration:none;padding:10px 12px;color:var(--muted);font-size:.95rem;transition:color .2s}
+nav#nav a:hover,nav#nav a[aria-current=page]{color:#fff}
+.ind{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--red);transition:transform .35s var(--ease),width .35s var(--ease)}
+.burger{display:none;background:none;border:1px solid var(--line);color:#fff;padding:10px 14px;border-radius:4px;min-height:44px;font:inherit}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 26px;background:var(--red);color:#fff;border:1px solid var(--red);border-radius:2px;text-decoration:none;font:600 .95rem var(--font);letter-spacing:.04em;cursor:pointer;transition:transform .2s var(--ease),background .2s}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.22) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s var(--ease)}
+.btn:hover{transform:translateY(-2px);background:#b00000}.btn:hover::after{transform:translateX(120%)}.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.35)}.btn.ghost:hover{background:rgba(255,255,255,.08);border-color:#fff}
+.btn[aria-disabled=true],.btn:disabled{background:var(--surface);border-color:var(--line);color:var(--muted);cursor:not-allowed;transform:none}.btn[aria-disabled=true]::after{display:none}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}
+.view.in{animation:vin .45s var(--ease)}.view.out{animation:vout .16s ease forwards}
+@keyframes vin{from{opacity:0;transform:translateY(14px)}}@keyframes vout{to{opacity:0;transform:translateY(-8px)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}}
+.view.in :is(.pcard,.svc,.social,.steps li,.rs,.lead-story,.embed){animation:rise .55s var(--ease) backwards;animation-delay:calc(var(--i,0)*70ms)}
+.wrap{max-width:1150px;margin:0 auto;padding:56px 5vw}.narrow{max-width:720px}
+.hero{position:relative;min-height:calc(100vh - 64px);min-height:calc(100svh - 64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:48px;align-items:center;padding:56px 5vw 90px;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(10,10,10,.88) 0%,rgba(10,10,10,.55) 55%,rgba(10,10,10,.75) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 28%)}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg::before{content:"";position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx,72%) var(--my,35%),rgba(156,0,0,.32),transparent 70%)}
+.hero-bg.has-img::after{content:"";position:absolute;inset:0;background:var(--hero) center/cover no-repeat}
+.has-img .terrain{display:none}
+.terrain{position:absolute;right:0;bottom:0;width:min(64vw,800px);height:78%;display:flex;align-items:flex-end;-webkit-mask-image:linear-gradient(to left,#000 35%,transparent);mask-image:linear-gradient(to left,#000 35%,transparent)}
+.terrain i{flex:1;height:calc(var(--h)*10%);transform-origin:bottom;box-shadow:inset -2px 0 0 rgba(18,18,18,.55);background:linear-gradient(var(--red) 0 6%,transparent 6%),repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 2px,transparent 2px 38px),rgba(156,0,0,.3);animation:grow .9s var(--ease) backwards;animation-delay:calc(.3s + var(--i)*45ms)}
+@keyframes grow{from{transform:scaleY(0)}}
+.hero-in{position:relative;z-index:2;max-width:640px}.hero-news{position:relative;z-index:2;min-width:0}.hero-news h2{margin:0 0 .5em;font-size:1.3rem}.hero .news{grid-template-columns:1fr;gap:20px}.hero .lead-story{min-height:min(60vh,520px);background:#0f0f0f}.hero .rs{grid-template-columns:96px 1fr}
+.hero-in>*{animation:rise .8s var(--ease) backwards;animation-delay:var(--d,0s)}
+.slogan{display:flex;align-items:center;gap:14px;font:600 .8rem var(--font);letter-spacing:.32em;text-transform:uppercase;margin:0 0 18px}.slogan::before{content:"";width:40px;height:2px;background:var(--red)}
+.mega{font:400 clamp(3.4rem,9vw,8rem)/.88 var(--disp);margin:0 0 .22em}.mega::after{display:none}
+.mega span{display:block;animation:reveal 1s var(--ease) backwards;animation-delay:var(--d)}
+.mega span+span{font-size:.4em;letter-spacing:.08em;color:transparent;-webkit-text-stroke:2px #fff;margin-top:.1em}
+@keyframes reveal{from{opacity:0;transform:translateY(40%);clip-path:inset(0 0 100% 0)}}
+.lead{max-width:46ch;font-size:1.15rem;color:var(--muted)}
+.scroll{position:absolute;z-index:2;left:5vw;bottom:18px;background:none;border:0;color:var(--muted);font:600 .75rem var(--font);letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px;cursor:pointer;min-height:44px}
+.scroll i{width:1px;height:42px;background:linear-gradient(var(--red),transparent);animation:drip 2s ease-in-out infinite}@keyframes drip{50%{transform:translateY(8px);opacity:.4}}
+.media{position:relative;overflow:hidden;aspect-ratio:16/10;background:#1b1b1b}
+.img{position:absolute;inset:0;background:center/cover;display:grid;place-items:center;transition:transform .8s var(--ease)}
+.img:not([style])::after{content:"M";font:400 6rem var(--disp);color:rgba(255,255,255,.06)}
+.lead-story:hover .img,.rs:hover .img,.pcard:hover .img{transform:scale(1.05)}
+.tag{display:inline-block;font:600 .7rem var(--font);letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border:1px solid var(--red);background:rgba(156,0,0,.2);margin-right:8px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:8px;animation:pulse 2s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(156,0,0,.9)}70%,100%{box-shadow:0 0 0 10px rgba(156,0,0,0)}}
+.news{display:grid;grid-template-columns:1.7fr 1fr;gap:32px}.news:has(.side:empty){grid-template-columns:1fr}.side:empty{display:none}
+.lead-story,.pcard{position:relative;display:block;width:100%;text-align:left;padding:0;border:1px solid var(--line);border-radius:3px;overflow:hidden;color:inherit;font:inherit;cursor:pointer;background:#141414;transition:border-color .3s}
+.lead-story{min-height:480px}.lead-story:hover,.pcard:hover{border-color:var(--red)}
+.lead-story .media,.pcard .media{position:absolute;inset:0;aspect-ratio:auto}
+.lead-story::after,.pcard::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(18,18,18,.96),rgba(18,18,18,.1) 70%)}
+.lead-story .body,.pcard .body{position:absolute;z-index:1;inset:auto 0 0 0;padding:26px}
+.lead-story h3{font:400 clamp(1.9rem,4vw,3.2rem)/1 var(--disp);margin:.4em 0}.lead-story p{max-width:52ch;color:var(--muted);margin:0 0 .6em}
+.more-link{display:inline-block;border-bottom:2px solid var(--red);font-weight:600}
+.side{display:flex;flex-direction:column}
+.rs{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:20px 0;color:inherit;font:inherit;cursor:pointer}.rs:first-child{border-top:0;padding-top:0}
+.rs .media{aspect-ratio:1}.rs h3{margin:.5em 0 .2em}.rs p{margin:0;color:var(--muted);font-size:.92rem}.rs:hover h3{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:4px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.empty{grid-column:1/-1;color:var(--muted)}
+.filter{background:none;border:1px solid var(--line);color:#fff;padding:8px 18px;border-radius:99px;min-height:44px;cursor:pointer;font:inherit;transition:background .25s,border-color .25s}.filter:hover{border-color:#fff}.filter[aria-pressed=true]{background:var(--red);border-color:var(--red)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px}.statement{font:400 clamp(1.4rem,2.6vw,2rem)/1.3 var(--disp);letter-spacing:.01em}
+.steps{position:relative;list-style:none;padding:0;counter-reset:s}.steps::before{content:"";position:absolute;left:17px;top:24px;bottom:24px;width:2px;background:var(--red);transform-origin:top;animation:draw 1.2s var(--ease) .2s backwards}@keyframes draw{from{transform:scaleY(0)}}
+.steps li{counter-increment:s;padding:14px 0 14px 60px;position:relative;min-height:64px}.steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:36px;height:36px;border-radius:50%;background:var(--bg);border:2px solid var(--red);display:grid;place-items:center;font-weight:700}
+.svc{border-top:1px solid var(--line)}.svc:last-child{border-bottom:1px solid var(--line)}
+.svc summary{display:grid;grid-template-columns:40px 1fr 24px;column-gap:18px;align-items:center;padding:26px 0;cursor:pointer;list-style:none;transition:padding-left .3s var(--ease)}
+.svc summary::-webkit-details-marker{display:none}.svc summary:hover{padding-left:12px}
+.svc svg{grid-row:span 2;width:34px;height:34px;stroke:#fff;fill:none;stroke-width:1.8}.svc h3{font:400 clamp(1.4rem,3vw,2.1rem)/1.1 var(--disp);margin:0}.svc .d{grid-column:2;color:var(--muted)}
+.plus{grid-row:span 2;grid-column:3;position:relative;width:20px;height:20px}.plus::before,.plus::after{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:#fff}.plus::after{transform:rotate(90deg);transition:transform .3s var(--ease)}.svc[open] .plus::after{transform:none}
+.more{display:flex;justify-content:flex-start;align-items:center;gap:24px;flex-wrap:wrap;padding:0 0 28px 58px;animation:rise .4s var(--ease)}.more p{margin:0;max-width:52ch}
+.cta{border-top:1px solid var(--line)}.cta h2{font-size:clamp(2rem,5vw,3.6rem);margin-top:0}
+.contact-direct{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0}
+.social{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:3px;transition:border-color .3s,transform .3s var(--ease)}.social:hover{border-color:var(--red);transform:translateY(-3px)}.social svg{width:36px;height:36px;fill:#fff}
+#l-status{display:inline-block;border:1px solid var(--red);background:rgba(156,0,0,.2);padding:2px 14px;border-radius:99px}
+.wide .media{aspect-ratio:16/9;margin:18px 0;border:1px solid var(--line);border-radius:4px}
+.back{display:inline-flex;align-items:center;background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;padding:0 0 16px;min-height:44px;text-decoration:none}.back:hover{color:#fff}
+.foot{border-top:1px solid var(--line);padding:36px 5vw;display:grid;gap:14px}.foot nav{display:flex;flex-wrap:wrap;gap:16px}.foot a{color:var(--muted);text-decoration:none}.foot a:hover{color:#fff}
+@media(max-width:860px){.hero::after{background:linear-gradient(0deg,var(--bg) 5%,rgba(10,10,10,.7))}.terrain{width:100%;height:55%;opacity:.55}.news,.split,.hero{grid-template-columns:1fr}.hero{gap:32px;padding-top:40px}.hero .lead-story{min-height:380px}.pgrid{grid-template-columns:1fr}.pgrid .pcard{grid-column:auto!important;min-height:300px}.more{padding-left:0}.lead-story{min-height:400px}
+.burger{display:block}nav#nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);flex-direction:column;padding:10px 5vw;border-bottom:1px solid var(--line)}nav#nav.open{display:flex}.ind,.top>.btn{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+.team{display:block;width:100%;height:auto;margin-top:20px;border:1px solid var(--line);border-radius:3px}
+.foot{padding-bottom:96px}
+body.locked{overflow:hidden}
+.intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;text-align:center;padding:24px;background:var(--bg);transition:opacity .7s var(--ease),visibility .7s}
+.intro::before{content:"";position:absolute;inset:0;background:url("assets/baner.png") center/cover no-repeat;opacity:.35}
+.intro::after{content:"";position:absolute;inset:0;background:radial-gradient(70vw 50vh at 50% 50%,rgba(10,10,10,.35),var(--bg) 95%)}
+.intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+.intro-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:22px;max-width:640px}
+.intro-in img{width:auto;max-width:min(300px,70vw);max-height:22vh;object-fit:contain;animation:rise .9s var(--ease) backwards}
+.intro-in h2{margin:0;font:400 clamp(2.6rem,9vw,5.5rem)/.95 var(--disp);text-transform:uppercase;animation:rise .9s var(--ease) .15s backwards}
+.intro-in p{margin:0;color:var(--muted);letter-spacing:.3em;text-transform:uppercase;font-size:.8rem;animation:rise .9s var(--ease) .3s backwards}
+.intro-in .btn{margin-top:10px;min-height:52px;padding:12px 34px;animation:rise .9s var(--ease) .45s backwards}
+:root{--neon:#ff2a2a;--glow:0 0 16px rgba(255,42,42,.4),0 0 40px rgba(156,0,0,.35)}
+body::before{background:radial-gradient(60vw 40vw at 90% -10%,rgba(156,0,0,.28),transparent 70%),radial-gradient(50vw 40vw at -10% 105%,rgba(156,0,0,.2),transparent 70%)}
+h1::after{box-shadow:0 0 10px var(--neon),0 0 26px rgba(255,42,42,.55)}
+.mega span+span{filter:drop-shadow(0 0 10px rgba(255,42,42,.6)) drop-shadow(0 0 28px rgba(156,0,0,.7))}
+.slogan::before{box-shadow:0 0 10px var(--neon)}
+.logo img,.intro-in img{filter:drop-shadow(0 0 10px rgba(255,42,42,.35))}
+nav#nav a:hover,nav#nav a[aria-current=page]{text-shadow:0 0 12px rgba(255,42,42,.8)}
+.ind{box-shadow:0 0 10px var(--neon),0 0 20px rgba(255,42,42,.5)}
+.btn{box-shadow:0 0 14px rgba(255,42,42,.35),inset 0 0 0 1px rgba(255,120,120,.15)}
+.btn:hover{box-shadow:0 0 22px rgba(255,42,42,.75),0 0 48px rgba(156,0,0,.5)}
+.btn.ghost{box-shadow:none}.btn.ghost:hover{box-shadow:0 0 16px rgba(255,255,255,.18),0 0 30px rgba(156,0,0,.4)}
+.btn[aria-disabled=true]{box-shadow:none}
+.tag{box-shadow:0 0 10px rgba(156,0,0,.55);text-shadow:0 0 8px rgba(255,42,42,.5)}
+.lead-story{border-color:rgba(255,42,42,.35);animation:neon 5s ease-in-out infinite}
+@keyframes neon{0%,100%{box-shadow:0 0 18px rgba(156,0,0,.35),0 0 50px rgba(156,0,0,.18)}50%{box-shadow:0 0 28px rgba(255,42,42,.5),0 0 70px rgba(156,0,0,.32)}}
+.view.in .lead-story{animation:rise .55s var(--ease) backwards,neon 5s ease-in-out .6s infinite}
+.pcard:hover,.social:hover,.rs:hover .media{box-shadow:var(--glow)}
+.pcard:hover,.social:hover{border-color:var(--neon)}
+.filter[aria-pressed=true]{box-shadow:0 0 14px rgba(255,42,42,.55)}
+.svc summary:hover h3{text-shadow:0 0 14px rgba(255,42,42,.6)}
+.svc[open]{box-shadow:inset 3px 0 0 var(--red),-6px 0 24px -10px rgba(255,42,42,.6)}
+.team{box-shadow:0 0 30px rgba(156,0,0,.35);border-color:rgba(255,42,42,.3)}
+.intro-in h2{text-shadow:0 0 18px rgba(255,42,42,.65),0 0 48px rgba(156,0,0,.8)}
+.intro-in .btn{animation:rise .9s var(--ease) .45s backwards,breathe 3s ease-in-out 1.4s infinite}
+@keyframes breathe{50%{box-shadow:0 0 26px rgba(255,42,42,.8),0 0 60px rgba(156,0,0,.55)}}
+.foot{padding:18px 5vw;gap:10px;font-size:.8rem;border-top:1px solid var(--line);box-shadow:0 -1px 24px -8px rgba(255,42,42,.35)}
+.foot-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot .foot-brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff}
+.foot-brand img{height:24px;max-width:120px;filter:none}
+.foot-brand strong{font:400 1rem var(--disp);letter-spacing:.04em}
+.foot nav{gap:14px}.foot nav a{font-size:.78rem}
+.foot-bot{display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;color:var(--muted);font-size:.75rem}
+.foot .zan{display:inline-block;padding:1px 10px;border:1px solid var(--neon);border-radius:99px;color:#fff;font-weight:700;letter-spacing:.04em;background:rgba(156,0,0,.3);text-shadow:0 0 8px var(--neon);box-shadow:0 0 12px rgba(255,42,42,.6),0 0 28px rgba(156,0,0,.5);transition:box-shadow .25s}
+.foot .zan:hover{box-shadow:0 0 18px rgba(255,42,42,.95),0 0 44px rgba(255,42,42,.5)}
+/* tarjetas simétricas */
+.pgrid .pcard{display:flex;flex-direction:column;grid-column:auto!important;min-height:0;background:#101010}
+.pcard::after{display:none}
+.pcard .media{position:relative;inset:auto;aspect-ratio:16/10;border-bottom:1px solid var(--line)}
+.pcard .body{position:static;display:flex;flex-direction:column;align-items:flex-start;flex:1;padding:18px 20px 22px}
+.pcard h3{font:400 1.7rem/1.05 var(--disp);margin:.55em 0 .45em}
+.facts{list-style:none;margin:0;padding:0;display:grid;gap:5px;color:var(--muted);font-size:.88rem;line-height:1.4}
+.facts li{position:relative;padding-left:14px}
+.facts li::before{content:"";position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--neon);box-shadow:0 0 6px var(--neon)}
+.pcard:hover{transform:translateY(-4px)}
+.pcard{transition:border-color .3s,box-shadow .3s,transform .35s var(--ease)}
+@media(max-width:1000px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.pgrid{grid-template-columns:1fr}}
+/* reproductor minimal, arriba a la izquierda */
+.player{position:fixed;top:78px;left:16px;z-index:40}
+.pl-box{width:min(360px,calc(100vw - 32px));background:rgba(10,10,10,.88);backdrop-filter:blur(10px);border:1px solid rgba(255,42,42,.28);border-radius:10px;box-shadow:0 0 20px rgba(156,0,0,.35)}
+.pl-bar{display:flex;align-items:center;gap:2px;padding:4px 6px}
+.pl-bar button,.pl-fab{display:grid;place-items:center;flex:none;width:34px;height:34px;padding:0;background:none;border:0;border-radius:50%;cursor:pointer;transition:background .2s,box-shadow .2s}
+.pl-bar button:hover{background:rgba(255,255,255,.1)}
+.pl-bar svg,.pl-fab svg{width:17px;height:17px;fill:#fff}
+.pl-bar #pl-play{background:var(--red);box-shadow:0 0 12px rgba(255,42,42,.5)}.pl-bar #pl-play:hover{background:#b00000}
+.pl-title{flex:1;min-width:0;padding:0 8px;font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-volwrap{display:flex;align-items:center}
+.pl-vol{width:0;opacity:0;height:18px;margin:0;accent-color:var(--red);transition:width .3s var(--ease),opacity .2s}
+.pl-volwrap:hover .pl-vol,.pl-volwrap:focus-within .pl-vol{width:62px;opacity:1}
+@media(hover:none){.pl-vol{display:none}}
+.pl-fab{width:42px;height:42px;background:rgba(10,10,10,.9);border:1px solid rgba(255,42,42,.4);box-shadow:0 0 16px rgba(156,0,0,.5)}
+.player.playing .pl-fab{animation:breathe 3s ease-in-out infinite}
+.pl-list{list-style:none;margin:0;padding:4px;border-top:1px solid var(--line);max-height:200px;overflow:auto}
+.pl-list button{display:block;width:100%;text-align:left;background:none;border:0;border-radius:4px;color:var(--muted);padding:8px 10px;font:inherit;font-size:.82rem;cursor:pointer}
+.pl-list button:hover{background:rgba(255,255,255,.06);color:#fff}
+.pl-list button[aria-current=true]{color:#fff;box-shadow:inset 3px 0 0 var(--neon)}
+/* animaciones */
+.hero-bg.has-img::after{animation:kb 36s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.07)}}
+.top::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--neon),transparent) -40% 0/40% 100% no-repeat;animation:sweep 7s linear infinite;pointer-events:none}
+@keyframes sweep{to{background-position:140% 0}}
+.rv{opacity:0;transform:translateY(26px)}
+.rv.rv-in{opacity:1;transform:none;transition:opacity .75s var(--ease) var(--rd,0ms),transform .75s var(--ease) var(--rd,0ms)}
+#home-projects .pcard{animation:none!important}
+.svc summary h3{transition:text-shadow .3s,transform .3s var(--ease)}.svc summary:hover h3{transform:translateX(4px)}
+.social svg{transition:transform .35s var(--ease),filter .3s}.social:hover svg{transform:scale(1.12);filter:drop-shadow(0 0 8px var(--neon))}
+.note{border:1px solid var(--line);border-radius:4px;margin:18px 0;background:#101010}
+.note summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;cursor:pointer;list-style:none;font-weight:600}
+.note summary::-webkit-details-marker{display:none}
+.note summary:hover{background:rgba(255,255,255,.03)}
+.note[open] .plus::after{transform:none}
+.note-body{padding:2px 20px 20px;color:var(--muted)}
+.note-body h3{color:#fff;margin:1.2em 0 .4em}
+.note-body ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.note-body p{margin:.4em 0}
+.note.warn{border-color:rgba(255,42,42,.55);box-shadow:0 0 18px rgba(156,0,0,.3)}
+.note.warn summary{color:#fff}
+.note.warn summary span::before{content:"";display:inline-block;width:8px;height:8px;margin-right:10px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon)}
+body{display:flex;flex-direction:column;min-height:100vh;min-height:100dvh}
+main{flex:1 0 auto;width:100%}
+.foot{flex-shrink:0;margin-top:auto}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;margin-top:32px}
+.embed{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;border:1px solid var(--line);border-radius:4px;background:#101010}
+.embed h3{margin:0;font:400 1.5rem/1.1 var(--disp)}.embed p{margin:0}
+.embed iframe{width:100%;height:560px;border:1px solid var(--line);border-radius:4px;background:#1b1b1b}
+.embed p a{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
+.beta-warn{padding:12px 14px;border-left:3px solid var(--neon);background:rgba(156,0,0,.18);color:#fff}
+</style>
+</head>
+<body class="locked">
+<div class="intro" id="intro" role="dialog" aria-label="Bienvenida">
+  <div class="intro-in">
+    <img src="assets/logotrans.png" alt="Mira Productions" onerror="this.remove()">
+    <h2>Mira Productions</h2>
+    <p>Minecraft Events Creators</p>
+    <button class="btn" id="enter" type="button">Click para entrar a conocernos</button>
+  </div>
+</div>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top">
+  <a class="logo" href="#inicio" aria-label="Mira Productions, inicio"><img src="assets/logopage.png" alt="Mira Productions"></a>
+  <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">Menú</button>
+  <nav id="nav" aria-label="Principal"></nav>
+  <a class="btn" href="#contacto">Contactar</a>
+</header>
+<main id="main" tabindex="-1">
+  <section class="view" id="v-inicio" hidden>
+    <div class="hero">
+      <div class="hero-bg" aria-hidden="true"><div class="terrain"></div></div>
+      <div class="hero-in">
+        <p class="slogan" data-slogan style="--d:.1s"></p>
+        <h1 class="mega" aria-label="Mira Productions"><span style="--d:.2s">Mira</span><span style="--d:.34s">Productions</span></h1>
+        <p class="lead" data-desc style="--d:.55s"></p>
+        <div class="row" style="--d:.7s"><a class="btn" href="#proyectos">Ver proyectos</a><a class="btn ghost" href="#servicios">Servicios</a></div>
+      </div>
+      <div class="hero-news"><h2>Novedades</h2><div id="news" class="news"></div></div>
+      <button class="scroll" data-scroll>Proyectos<i></i></button>
+    </div>
+    <div class="wrap"><h2>Proyectos actuales</h2><div id="home-projects" class="pgrid"></div></div>
+    <div class="wrap cta"><h2>¿Tienes una idea para Minecraft?</h2><p>Descríbenos tu objetivo y lo plasmamos lo mejor posible hasta considerar el proyecto terminado.</p><a class="btn" href="#contacto">Contactar</a></div>
+  </section>
+
+  <section class="view" id="v-presentacion" hidden>
+    <div class="wrap"><h1>Presentación</h1>
+      <div class="split"><div><h2>¿Quiénes somos?</h2><p class="statement" data-about1></p></div>
+      <div><h2>Nuestro objetivo</h2><p data-about3></p></div></div>
+      <h2>Nuestro equipo</h2>
+      <p>Las personas que forman Mira Productions.</p>
+      <img class="team" src="assets/banercontodos.png" alt="Equipo de Mira Productions">
+    </div>
+  </section>
+
+  <section class="view" id="v-proyectos" hidden>
+    <div class="wrap"><h1>Proyectos actuales</h1><div id="filters" class="row" role="group" aria-label="Filtrar por categoría"></div><div id="projects" class="pgrid"></div></div>
+  </section>
+
+  <section class="view" id="v-servicios" hidden>
+    <div class="wrap"><h1>Servicios</h1><div id="services" class="services"></div></div>
+  </section>
+
+  <section class="view" id="v-contacto" hidden>
+    <div class="wrap narrow"><h1>Contacto</h1><p>Contáctanos por correo o Discord.</p>
+      <div class="contact-direct"><a class="btn" href="mailto:capibarastudios.eventos@gmail.com">Enviar correo</a><a class="btn ghost" href="https://discord.com/invite/kjtfQrsrtH" target="_blank" rel="noopener noreferrer">Contactar por Discord</a></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-redes" hidden>
+    <div class="wrap"><h1>Redes Sociales</h1><div id="social" class="grid"></div></div>
+  </section>
+
+  <section class="view" id="v-launcher" hidden>
+    <div class="wrap narrow"><h1>Descarga de Launcher</h1>
+      <p data-launcher-text></p><p><strong id="l-status"></strong></p>
+      <details class="note warn">
+        <summary><span>Versión beta · Mira Launcher 1.2.10</span><i class="plus" aria-hidden="true"></i></summary>
+        <div class="note-body">
+          <p class="beta-warn">Esta es una versión beta del Launcher de Mira. Puede presentar errores y cambiar antes del lanzamiento oficial.</p>
+          <p>Esta versión reúne las mejoras y correcciones de las últimas actualizaciones.</p>
+          <h3>Instancias y eventos</h3>
+          <ul>
+            <li>Nuevo catálogo para descubrir y descargar eventos públicos desde el launcher.</li>
+            <li>Eventos privados por código y eventos exclusivos por contraseña.</li>
+            <li>Las tarjetas muestran el icono configurado para cada instancia, sin usar su fondo como portada.</li>
+            <li>Panel web para administrar instancias, archivos e importar modpacks de Modrinth.</li>
+          </ul>
+          <h3>Launcher</h3>
+          <ul>
+            <li>Inicio de sesión con Microsoft o con nick local, según la configuración.</li>
+            <li>Galería de skins guardadas y predeterminadas, con vista 3D.</li>
+            <li>MiraConnect para conectar al servidor al iniciar y reintentar tras una desconexión.</li>
+            <li>Discord Rich Presence con información de la instancia.</li>
+            <li>Nuevos ajustes de pantalla completa, aceleración gráfica y cierre en segundo plano. La RAM predeterminada es 4096 MiB mínima y 6144 MiB máxima.</li>
+          </ul>
+          <h3>Errores corregidos</h3>
+          <ul>
+            <li>Mejorada la carga de mods protegidos y la presentación del progreso de descarga.</li>
+            <li>Corregido el fallo del visor 3D de skins y el error del catálogo al conectar con un webhost anterior.</li>
+            <li>Al cerrar Mira mientras juegas, ahora puedes enviarlo a segundo plano, cancelar o cerrar también Minecraft.</li>
+          </ul>
+        </div>
+      </details>
+      <div class="row"><a id="l-btn" class="btn" role="link"></a></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-tienda" hidden>
+    <div class="wrap"><h1>Tienda</h1><p data-shop-text></p><a id="shop-btn" class="btn"></a><div id="products" class="products"></div></div>
+  </section>
+
+  <section class="view" id="v-detalle" hidden><div class="wrap narrow" id="detail"></div></section>
+  <section class="view" id="v-404" hidden><div class="wrap"><h1>Página no encontrada</h1><a class="btn" href="#inicio">Volver al inicio</a></div></section>
+</main>
+<footer class="foot">
+  <div class="foot-top">
+    <a class="foot-brand" href="#inicio" aria-label="Mira Productions, inicio"><img src="assets/logopage.png" alt=""><strong>Mira Productions</strong></a>
+    <nav id="foot-nav" aria-label="Pie de página"></nav>
+  </div>
+  <div class="foot-bot">
+    <span id="rights"></span>
+    <span class="credit">Página creada por <a class="zan" href="https://zansumilmc.github.io/ZANSUMI/" target="_blank" rel="noopener noreferrer">ᴸᴹᶜ | Zansumi</a> bajo el mando de Mira Productions, distribuido por <a href="https://zansumilmc.github.io/LMC-STUDIOS/" target="_blank" rel="noopener noreferrer">LMC Studios ™</a> bajo GitHub Pages</span>
+  </div>
+</footer>
+<div class="player" id="player" hidden>
+  <button class="pl-fab" id="pl-show" aria-label="Mostrar reproductor" hidden><svg viewBox="0 0 24 24"><path d="M12 3v10.600A4 4 0 1014 17V7h4V3z"/></svg></button>
+  <div class="pl-box" id="pl-box">
+    <div class="pl-bar">
+      <button id="pl-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.500 12l8.500 6V6z"/></svg></button>
+      <button id="pl-play" aria-label="Reproducir"><svg viewBox="0 0 24 24"><path id="pl-ico" d="M8 5v14l11-7z"/></svg></button>
+      <button id="pl-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.500-6L6 6z"/></svg></button>
+      <span class="pl-title" id="pl-title"></span>
+      <span class="pl-volwrap"><input class="pl-vol" id="pl-vol" type="range" min="0" max="1" step="0.05" value="0.1" aria-label="Volumen"><button id="pl-mute" aria-label="Silenciar"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9z"/><path id="pl-mute-ico" d="M16.500 12A4.500 4.500 0 0014 8v8a4.500 4.500 0 002.500-4zM14 3.200v2.100a7 7 0 010 13.400v2.100a9 9 0 000-17.600z"/></svg></button></span>
+      <button id="pl-toggle" aria-label="Lista de canciones" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 6h14v2H3zM3 11h14v2H3zM3 16h9v2H3zM19 5v10.500A3 3 0 1021 18V8h-2z"/></svg></button>
+      <button id="pl-hide" aria-label="Ocultar reproductor"><svg viewBox="0 0 24 24"><path d="M5 11h14v2H5z"/></svg></button>
+    </div>
+    <ul class="pl-list" id="pl-list" hidden></ul>
+  </div>
+</div>
+<script>
+const SITE_CONFIG = {
+  brand: { name: "Mira Productions", slogan: "Minecraft Events Creators",
+    description: "Estudio de Minecraft Java dedicado a la creación de modificaciones propias a tu gusto." },
+  colors: { primary: "#9C0000", background: "#0a0a0a", text: "#FFFFFF" },
+  links: {
+    x: "https://x.com/studioscapibara",
+    discord: "https://discord.com/invite/kjtfQrsrtH",
+    youtube: "https://www.youtube.com/@Miraproductionsoficial",
+    tiktok: "https://www.tiktok.com/@produccionesmira?_r=1&_t=ZS-9AW2xIzmedp",
+    kofi: "https://ko-fi.com/capibaracommunity/shop"
+  },
+  heroImage: "assets/baner.png",
+  rights: "© Mira Productions. Todos los derechos reservados.",
+  texts: {
+    about1: "Mira Productions, un estudio de Minecraft Java dedicado específicamente a la creación de modificaciones propias a tu gusto para cumplir tu objetivo en base a una descripción. Ofrecemos varios tipos, servicios y maneras para cumplir tu idea y plasmarla lo mejor posible para considerar el proyecto como terminado.",
+    about3: "El objetivo de la web es conseguir una presentación, ofrecer un servicio y un contacto para que la gente que necesita ayuda en creación, logística, producción, postproducción y realización del evento pueda tener una forma más sencilla de crear en base a su gusto. También, anunciar diversos anuncios para que la gente de nuestra comunidad y externos estén informados sobre ciertos temas que suceden dentro de la comunidad.",
+    launcherText: "Nuestro launcher está próximo a salir. Ya puedes probar la beta para Windows.",
+    shopText: "Visita nuestra tienda de Ko-fi."
+  },
+  playlist: [
+    { title: "Mingle", src: "assets/Mingle.mp3" },
+    { title: "Infinity Repeating - Daft Punk", src: "assets/Infinity%20Repeating%20-%20Daft%20Punk.mp3" },
+    { title: "Lofi", src: "assets/Lofi.mp3" }
+  ],
+  products: [
+    { title: "Setup oficial de The Island", description: "Gracias TheDoxito por el setup!", url: "https://ko-fi.com/s/e1d4f239ae" },
+    { title: "Modificación de AG 2 con permiso", description: 'El AG original es <a href="https://ko-fi.com/s/805d89cb11" target="_blank" rel="noopener noreferrer">aquí</a> (requisito para comprar este setup).', url: "https://ko-fi.com/s/6c7c36b426" }
+  ],
+  contact: { email: "capibarastudios.eventos@gmail.com" },
+  launcher: { status: "beta", downloadUrl: "https://launcher.carbonzdev.me/updates/win/Mira-Setup-1.2.9-x64.exe" },
+  news: [
+    { id: "proximamente", title: "????", description: "??? proyecto", image: "assets/eventprox.png", date: "2026-10-14", category: "Próximamente", link: "", published: true, featured: true }
+  ],
+  projects: [
+    { id: "mega-hardcore", title: "Mega Hardcore", facts: ["Inspirado en Minecraft Extr3mo", "200 invitados", "Ganador: Yuma"], description: "Evento inspirado en Minecraft Extr3mo. 200 invitados, ganador Yuma.", image: "assets/megahardc.png", category: "Terminados", status: "Finalizado", featured: false },
+    { id: "salvando-la-navidad", title: "Salvando La Navidad", facts: ["Hardcore inspirado en el evento de Westcol", "Con Bandejita Paisa", "Máximo 100 invitados"], description: "Evento creado por Mira Productions de la mano de Bandejita Paisa. Hardcore inspirado en el evento de Westcol. 100 invitados máximo.", image: "assets/salvandonavi.png", category: "Próximos", status: "Próximamente", featured: false },
+    { id: "reinosmp", title: "ReinoSmp", facts: ["Inspirado en ReinoSmp de Flex Vega", "56 participantes", "Inicia el 20/octubre/2026"], description: "Inicia el día 20/octubre/2026. Evento inspirado en ReinoSmp de Flex Vega, un remake prácticamente igual con 56 participantes.", image: "assets/reinosmp.png", category: "Próximos", status: "Próximamente", featured: true },
+    { id: "capybara-games", title: "Capybara Games", facts: ["Squid Game creado desde cero", "Inspirado en México", "Todos los juegos nuevos"], description: "Evento de Squid Game 100% creado por nosotros desde 0, inspirado en México y con todos los juegos totalmente nuevos.", image: "assets/capybaragames.png", category: "Próximos", status: "Próximamente", featured: true },
+    { id: "the-island", title: "The Island", facts: ["Battle royale con TheDoxito", "Escenas y armas personalizadas"], description: "Battle royale creado por TheDoxito y Mira Productions, con escenas, armas personalizadas, etc.", image: "assets/theisland.png", category: "Terminados", status: "Terminado", featured: false },
+    { id: "ag-games-25", title: "AG Games 2.5", facts: ["Modificación de AG 2", "Adaptado a Morpher", "Repetición el 24/octubre/2026"], description: "Modificación de AG 2 con todos los juegos cambiados, adaptado a Morpher y escenas extras.", image: "assets/agames2.png", category: "Terminados", status: "Terminado (Repetición el 24/octubre/2026)", featured: true },
+    { id: "capysafio-2", title: "Capysafio 2", facts: ["Uno de nuestros proyectos más ambiciosos"], description: "Uno de nuestros proyectos más ambiciosos.", image: "assets/capysafio.png", category: "Próximos", status: "Próximamente en 2027", featured: false }
+  ],
+  services: [
+    { id: "mods", title: "Modificaciones propias", description: "Creación de modificaciones propias para Minecraft Java a tu gusto, para cumplir tu objetivo en base a una descripción.", icon: "M8 6l-6 6 6 6M16 6l6 6-6 6" },
+    { id: "creacion", title: "Creación", description: "Ayuda en la creación de tu evento.", icon: "M12 3a6 6 0 00-4 10.5V17h8v-3.5A6 6 0 0012 3zM9 21h6" },
+    { id: "logistica", title: "Logística", description: "Ayuda en la logística de tu evento.", icon: "M4 6h16M4 12h16M4 18h10" },
+    { id: "produccion", title: "Producción", description: "Ayuda en la producción de tu evento.", icon: "M5 3l14 9-14 9z" },
+    { id: "post", title: "Postproducción", description: "Ayuda en la postproducción de tu evento.", icon: "M4 12l5 5L20 6" },
+    { id: "realizacion", title: "Realización del evento", description: "Ayuda en la realización de tu evento.", icon: "M12 2l3 7 7 .6-5.3 4.7 1.6 7.2L12 17.8 5.700 21.500l1.600-7.200L2 9.600 9 9z" }
+  ],
+};
+
+const C = SITE_CONFIG, $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const safeUrl = u => /^https?:\/\//i.test(u) ? u : "";
+const EXT = 'target="_blank" rel="noopener noreferrer"';
+const ICONS = {
+  x: "M18.2 2H21l-6.5 7.5L22 22h-6l-4.7-6.2L5.8 22H3l7-8L2 2h6.1l4.3 5.7zM17.1 20h1.6L7 3.9H5.3z",
+  discord: "M20 5a17 17 0 00-4.2-1.3l-.5 1a15 15 0 00-4.6 0l-.5-1A17 17 0 006 5C3.5 8.800 2.800 12.500 3.200 16.200a17 17 0 005.100 2.600l1.100-1.800c-.6-.2-1.200-.5-1.700-.9l.4-.3a12 12 0 0010.200 0l.4.300c-.5.400-1.100.700-1.700.900l1.100 1.800a17 17 0 005.100-2.600C21.400 11.900 20.300 8.200 20 5zM9.500 14c-.8 0-1.500-.8-1.500-1.700s.7-1.700 1.500-1.700 1.500.8 1.500 1.700-.7 1.700-1.500 1.700zm5 0c-.8 0-1.500-.8-1.500-1.700s.7-1.700 1.500-1.700 1.500.8 1.500 1.700-.7 1.700-1.500 1.700z",
+  youtube: "M22 8.200a3 3 0 00-2.100-2.100C18 5.600 12 5.600 12 5.600s-6 0-7.900.5A3 3 0 002 8.200C1.500 10 1.500 12 1.500 12s0 2 .5 3.800a3 3 0 002.100 2.100c1.900.5 7.900.5 7.900.5s6 0 7.900-.5a3 3 0 002.100-2.100c.5-1.800.5-3.800.5-3.800s0-2-.5-3.800zM10 15V9l5.200 3z",
+  tiktok: "M16.600 3c.3 2.300 1.700 3.800 4 3.900v3a7 7 0 01-4-1.300v6.300a6 6 0 11-6-6c.3 0 .7 0 1 .1v3.100a3 3 0 102 2.800V3z",
+  kofi: "M3 7h14v7a4 4 0 01-4 4H7a4 4 0 01-4-4zM17 8h2a2 2 0 010 5h-2"
+};
+const SOCIALS = [["x", "X"], ["discord", "Discord"], ["youtube", "YouTube"], ["tiktok", "TikTok"]];
+const icon = k => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONS[k]}"/></svg>`;
+const NAV = [["inicio", "Inicio"], ["presentacion", "Presentación"], ["proyectos", "Proyectos"], ["servicios", "Servicios"], ["contacto", "Contacto"], ["redes", "Redes Sociales"], ["launcher", "Launcher"], ["tienda", "Tienda"]];
+const img = (i, t) => `<div class="media"><div class="img"${i ? ` style="background-image:url('${esc(i)}')" role="img" aria-label="${esc(t)}"` : ""}></div></div>`;
+const fmtDate = d => { const x = new Date(d); return isNaN(x) ? "" : x.toLocaleDateString("es", { year: "numeric", month: "long", day: "numeric" }); };
+
+function init() {
+  const r = document.documentElement.style;
+  r.setProperty("--red", C.colors.primary); r.setProperty("--bg", C.colors.background); r.setProperty("--text", C.colors.text);
+  $$("[data-brand]").forEach(e => e.textContent = C.brand.name);
+  $$("[data-slogan]").forEach(e => e.textContent = C.brand.slogan);
+  $("[data-desc]").textContent = C.brand.description;
+  const t = C.texts; [["about1", t.about1], ["about3", t.about3], ["launcher-text", t.launcherText], ["shop-text", t.shopText]].forEach(([k, v]) => $(`[data-${k}]`).textContent = v);
+  $("#rights").textContent = C.rights;
+  const links = NAV.map(([id, l]) => `<a href="#${id}" data-route="${id}">${l}</a>`).join("");
+  $("#nav").innerHTML = links + '<span class="ind"></span>'; $("#foot-nav").innerHTML = links;
+  const soc = SOCIALS.filter(([k]) => safeUrl(C.links[k]));
+  $("#social").innerHTML = soc.map(([k, n]) => `<div class="social">${icon(k)}<h3>${n}</h3><a class="btn" href="${esc(C.links[k])}" ${EXT}>Visitar ${n}</a></div>`).join("");
+  $("#services").innerHTML = C.services.map(s => `<details class="svc"><summary><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${s.icon}"/></svg><h3>${esc(s.title)}</h3><span class="d">${esc(s.description)}</span><i class="plus" aria-hidden="true"></i></summary><div class="more"><a class="btn" href="#contacto">Solicitar información</a></div></details>`).join("");
+  renderNews(); renderProjects("Todos"); renderLauncher(); renderShop();
+  $("#home-projects").innerHTML = projectCards(C.projects.filter(p => p.featured).slice(0, 3));
+}
+
+function renderNews() {
+  const list = C.news.filter(n => n.published).sort((a, b) => new Date(b.date) - new Date(a.date));
+  const el = $("#news");
+  if (!list.length) { el.innerHTML = ""; return; }
+  const main = list.find(n => n.featured) || list[0], rest = list.filter(n => n !== main).slice(0, 3);
+  const meta = n => `<span class="tag">${esc(n.category)}</span>`;
+  el.innerHTML = `<button class="lead-story" data-news="${esc(main.id)}">${img(main.image, main.title)}<div class="body"><i class="dot"></i>${meta(main)}<h3>${esc(main.title)}</h3><p>${esc(main.description)}</p><span class="more-link">Ver detalles</span></div></button><div class="side">${rest.map(n => `<button class="rs" data-news="${esc(n.id)}">${img(n.image, n.title)}<div>${meta(n)}<h3>${esc(n.title)}</h3><p>${esc(n.description)}</p></div></button>`).join("")}</div>`;
+}
+
+const projectCards = l => l.length ? l.map(p => `<button class="pcard" data-project="${esc(p.id)}">${img(p.image, p.title)}<div class="body"><span class="tag">${esc(p.status)}</span><h3>${esc(p.title)}</h3><ul class="facts">${p.facts.map(f => `<li>${esc(f)}</li>`).join("")}</ul></div></button>`).join("") : "";
+function renderProjects(cat) {
+  const cats = ["Todos", ...new Set(C.projects.map(p => p.category))];
+  $("#filters").innerHTML = cats.map(c => `<button class="filter" aria-pressed="${c === cat}" data-filter="${esc(c)}">${esc(c)}</button>`).join("");
+  $("#projects").innerHTML = projectCards(cat === "Todos" ? C.projects : C.projects.filter(p => p.category === cat));
+  stagger($("#projects"));
+}
+
+function renderLauncher() {
+  const L = C.launcher, ready = ["available", "beta"].includes(L.status) && safeUrl(L.downloadUrl), b = $("#l-btn");
+  $("#l-status").textContent = !ready ? "Próximamente" : L.status === "beta" ? "Beta" : "Disponible";
+  if (ready) { b.href = L.downloadUrl; b.rel = "noopener noreferrer"; b.textContent = L.status === "beta" ? "Descargar beta para Windows" : "Descargar launcher"; b.removeAttribute("aria-disabled"); }
+  else { b.removeAttribute("href"); b.setAttribute("aria-disabled", "true"); b.textContent = "Descarga próximamente"; }
+}
+function renderShop() {
+  const b = $("#shop-btn");
+  b.href = C.links.kofi; b.target = "_blank"; b.rel = "noopener noreferrer"; b.textContent = "Ir a la tienda en Ko-fi";
+  $("#products").innerHTML = C.products.map(p => `<article class="embed"><h3>${esc(p.title)}</h3>${p.description ? `<p class="muted">${p.description}</p>` : ""}<iframe src="${esc(p.url)}" title="${esc(p.title)}" loading="lazy" referrerpolicy="no-referrer"></iframe><a class="btn" href="${esc(p.url)}" ${EXT}>Abrir en Ko-fi</a></article>`).join("");
+}
+
+function showDetail(kind, id) {
+  const it = (kind === "noticia" ? C.news.filter(n => n.published) : C.projects).find(x => x.id === id);
+  if (!it) return false;
+  const url = safeUrl(it.link), backHash = origin && origin !== location.hash.slice(1) && !/^(proyecto|noticia)\//.test(origin) ? origin : (kind === "noticia" ? "inicio" : "proyectos");
+  $("#detail").innerHTML = `<a class="back" href="#${esc(backHash)}">← Volver</a><span class="tag">${esc(it.status || it.category)}</span><h1>${esc(it.title)}</h1><div class="wide">${img(it.image, it.title)}</div><p>${esc(it.description)}</p>${url ? `<a class="btn" href="${esc(url)}" ${EXT}>Más información</a>` : ""}`;
+  return true;
+}
+
+let origin = "";
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let cur = null, tok = 0;
+const stagger = r => $$(".pcard,.svc,.social,.steps li,.rs,.lead-story,.embed", r).forEach((e, i) => e.style.setProperty("--i", Math.min(i, 9)));
+function show(id) {
+  const next = $("#v-" + id), prev = cur, t = ++tok;
+  if (next === prev) { prev.classList.remove("out"); return; }
+  const go = () => { if (t !== tok) { if (prev && prev === cur) prev.classList.remove("out"); return; } $$(".view").forEach(v => { v.hidden = v !== next; v.classList.remove("in", "out"); }); cur = next; stagger(next); next.classList.add("in"); window.scrollTo(0, 0); };
+  if (prev && !REDUCE) { prev.classList.add("out"); setTimeout(go, 160); } else go();
+}
+function moveInd() { const a = $("#nav [aria-current]"), i = $("#nav .ind"); if (!i) return; i.style.width = a ? a.offsetWidth + "px" : "0"; if (a) i.style.transform = `translateX(${a.offsetLeft}px)`; }
+addEventListener("resize", moveInd); document.fonts && document.fonts.ready.then(moveInd);
+function route() {
+  const [name, id] = (location.hash.slice(1) || "inicio").split("/");
+  let view = name;
+  if ((name === "noticia" || name === "proyecto") && id) view = showDetail(name, decodeURIComponent(id)) ? "detalle" : "404";
+  else if (!NAV.some(n => n[0] === name)) view = "404";
+  show(view);
+  $$("#nav a").forEach(a => a.getAttribute("data-route") === (view === "detalle" ? (name === "noticia" ? "inicio" : "proyectos") : name) ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  $("#nav").classList.remove("open"); $(".burger").setAttribute("aria-expanded", "false");
+  document.title = (NAV.find(n => n[0] === name)?.[1] || C.brand.name) + " | " + C.brand.name;
+  $("#main").focus({ preventScroll: true }); moveInd();
+}
+addEventListener("hashchange", route);
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-news],[data-project],[data-filter],[data-scroll],.burger"); if (!t) return;
+  if (t.dataset.news) { origin = location.hash.slice(1) || "inicio"; location.hash = "noticia/" + encodeURIComponent(t.dataset.news); }
+  else if (t.dataset.project) { origin = location.hash.slice(1) || "inicio"; location.hash = "proyecto/" + encodeURIComponent(t.dataset.project); }
+  else if (t.dataset.filter) renderProjects(t.dataset.filter);
+  else if ("scroll" in t.dataset) $("#home-projects").scrollIntoView({ behavior: "smooth", block: "center" });
+  else { const o = $("#nav").classList.toggle("open"); t.setAttribute("aria-expanded", o); }
+});
+document.addEventListener("click", e => { const a = e.target.closest("a[aria-disabled=true]"); if (a) e.preventDefault(); });
+
+(function () {
+  const hb = $(".hero-bg");
+  $(".terrain").innerHTML = [3, 4, 4, 6, 5, 7, 9, 8, 6, 5, 6, 4, 3, 3].map((h, i) => `<i style="--h:${h};--i:${i}"></i>`).join("");
+  if (C.heroImage) { hb.style.setProperty("--hero", `url("${C.heroImage.replace(/"/g, "")}")`); hb.classList.add("has-img"); }
+  if (matchMedia("(pointer: fine)").matches && !REDUCE) $(".hero").addEventListener("pointermove", e => { const r = e.currentTarget.getBoundingClientRect(); hb.style.setProperty("--mx", e.clientX - r.left + "px"); hb.style.setProperty("--my", e.clientY - r.top + "px"); });
+})();
+init(); route();
+
+
+/* ---- Aparición al hacer scroll ---- */
+(function () {
+  const els = $$("#home-projects .pcard, #v-inicio .wrap:not(.cta)>h2, #v-inicio .cta>*, .team");
+  els.forEach((e, i) => { e.classList.add("rv"); e.style.setProperty("--rd", (e.matches(".pcard") ? (i % 3) * 110 : 0) + "ms"); });
+  const done = e => { e.classList.add("rv-in"); const f = ev => { if (ev.target !== e || ev.propertyName !== "opacity") return; e.classList.remove("rv", "rv-in"); e.style.removeProperty("--rd"); e.removeEventListener("transitionend", f); }; e.addEventListener("transitionend", f); };
+  if (!("IntersectionObserver" in window)) return els.forEach(e => e.classList.remove("rv"));
+  const io = new IntersectionObserver(en => en.forEach(x => { if (x.isIntersecting) { io.unobserve(x.target); done(x.target); } }), { threshold: .12, rootMargin: "0px 0px -6% 0px" });
+  els.forEach(e => io.observe(e));
+})();
+
+/* ---- Pantalla de entrada y reproductor ---- */
+(function () {
+  const list = C.playlist || [], pl = $("#player"), au = new Audio(), ico = $("#pl-ico");
+  const PLAY = "M8 5v14l11-7z", PAUSE = "M6 5h4v14H6zM14 5h4v14h-4z";
+  let i = 0;
+  au.volume = .1; au.preload = "metadata";
+  const load = n => {
+    i = (n + list.length) % list.length; au.src = list[i].src;
+    $("#pl-title").textContent = list[i].title;
+    $$("#pl-list button").forEach((b, k) => b.setAttribute("aria-current", k === i));
+  };
+  const play = () => { const r = au.play(); if (r) r.catch(() => au.addEventListener("canplay", () => au.play().catch(() => {}), { once: true })); };
+  if (list.length) {
+    pl.hidden = false;
+    $("#pl-list").innerHTML = list.map((t, k) => `<li><button data-i="${k}">${esc(t.title)}</button></li>`).join("");
+    load(Math.floor(Math.random() * list.length));
+    let fails = 0, adv = false;
+    const next = () => { if (adv) return; adv = true; load(i + 1); play(); };
+    au.addEventListener("loadstart", () => { adv = false; });
+    au.loop = false;
+    au.addEventListener("ended", next);
+    au.addEventListener("pause", () => { if (au.ended) next(); });
+    au.addEventListener("playing", () => { fails = 0; });
+    au.addEventListener("error", () => { if (++fails < list.length) { load(i + 1); play(); } });
+    au.addEventListener("play", () => { pl.classList.add("playing"); ico.setAttribute("d", PAUSE); $("#pl-play").setAttribute("aria-label", "Pausar"); });
+    au.addEventListener("pause", () => { pl.classList.remove("playing"); ico.setAttribute("d", PLAY); $("#pl-play").setAttribute("aria-label", "Reproducir"); });
+    $("#pl-play").onclick = () => au.paused ? play() : au.pause();
+    $("#pl-prev").onclick = () => { load(i - 1); play(); };
+    $("#pl-next").onclick = () => { load(i + 1); play(); };
+    const SOUND = "M16.500 12A4.500 4.500 0 0014 8v8a4.500 4.500 0 002.500-4zM14 3.200v2.100a7 7 0 010 13.400v2.100a9 9 0 000-17.600z";
+    const MUTED = "M15.400 9L14 10.400 15.600 12 14 13.600 15.400 15 17 13.400 18.600 15 20 13.600 18.400 12 20 10.400 18.600 9 17 10.600z";
+    const sync = () => { const m = au.muted || au.volume === 0; $("#pl-mute-ico").setAttribute("d", m ? MUTED : SOUND); $("#pl-mute").setAttribute("aria-label", m ? "Activar sonido" : "Silenciar"); };
+    $("#pl-vol").oninput = e => { au.volume = e.target.value; if (au.volume > 0) au.muted = false; sync(); };
+    $("#pl-mute").onclick = () => { if (au.volume === 0) { au.volume = .1; $("#pl-vol").value = .1; au.muted = false; } else au.muted = !au.muted; sync(); };
+    $("#pl-toggle").onclick = e => { const l = $("#pl-list"); l.hidden = !l.hidden; e.currentTarget.setAttribute("aria-expanded", !l.hidden); };
+    const vis = on => { $("#pl-box").hidden = !on; $("#pl-show").hidden = on; if (!on) { $("#pl-list").hidden = true; $("#pl-toggle").setAttribute("aria-expanded", "false"); } };
+    $("#pl-hide").onclick = () => { vis(false); $("#pl-show").focus(); };
+    $("#pl-show").onclick = () => { vis(true); $("#pl-play").focus(); };
+    vis(false);
+    $("#pl-list").onclick = e => { const b = e.target.closest("button[data-i]"); if (b) { load(+b.dataset.i); play(); } };
+  }
+  $("#enter").addEventListener("click", () => {
+    $("#intro").classList.add("gone"); document.body.classList.remove("locked");
+    if (list.length) play();
+    $("#main").focus({ preventScroll: true });
+  });
+  $("#enter").focus();
+})();
+
+</script>
+</body>
+</html>
