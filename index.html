@@ -218,6 +218,26 @@ main{flex:1 0 auto;width:100%}
 .embed iframe{width:100%;height:560px;border:1px solid var(--line);border-radius:4px;background:#1b1b1b}
 .embed p a{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px}
 .beta-warn{padding:12px 14px;border-left:3px solid var(--neon);background:rgba(156,0,0,.18);color:#fff}
+/* ===== Movimiento extra ===== */
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;transform-origin:left;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--red),var(--neon));box-shadow:0 0 12px var(--neon);pointer-events:none}
+.embers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-in{transform:translateY(calc(var(--py,0)*1px));opacity:var(--po,1);will-change:transform}
+.mega span:first-child{background:linear-gradient(100deg,#fff 40%,#ffb3b3 50%,#fff 60%) 150% 0/250% 100% no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;animation:reveal 1s var(--ease) var(--d) backwards,shine 6s ease-in-out 1.6s infinite}
+@keyframes shine{0%,35%{background-position:150% 0}100%{background-position:-50% 0}}
+.terrain i{animation:grow .9s var(--ease) calc(.3s + var(--i)*45ms) backwards,idle 5s ease-in-out calc(2.2s + var(--i)*140ms) infinite alternate}
+@keyframes idle{to{transform:scaleY(.9)}}
+.view.in h1::after{animation:line .9s var(--ease) .25s backwards}@keyframes line{from{width:0}}
+.intro-in{transition:transform .8s var(--ease),opacity .6s}.intro.gone .intro-in{transform:scale(1.12);opacity:0}
+.intro-in img{animation:rise .9s var(--ease) backwards,float 6s ease-in-out 1s infinite}@keyframes float{50%{transform:translateY(-8px)}}
+.intro-in::before,.intro-in::after{content:"";position:absolute;z-index:-1;top:50%;left:50%;width:min(70vw,520px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,42,42,.3);animation:ring 4s ease-out infinite;pointer-events:none}
+.intro-in::after{animation-delay:2s}
+@keyframes ring{from{transform:translate(-50%,-50%) scale(.4);opacity:.9}to{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
+.pcard,.social{transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+.pcard:hover,.social:hover{transform:perspective(900px) translateY(-4px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.pcard .media::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-120%);transition:transform .8s var(--ease);pointer-events:none}
+.pcard:hover .media::after{transform:translateX(120%)}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
+@keyframes rip{to{transform:scale(1);opacity:0}}
 </style>
 </head>
 <body class="locked">
@@ -573,6 +593,62 @@ init(); route();
     $("#main").focus({ preventScroll: true });
   });
   $("#enter").focus();
+})();
+
+/* ---- Movimiento extra ---- */
+(function () {
+  const root = document.documentElement;
+  const bar = document.createElement("div"); bar.className = "progress"; bar.setAttribute("aria-hidden", "true"); document.body.prepend(bar);
+  let tick = false;
+  const onScroll = () => { if (tick) return; tick = true; requestAnimationFrame(() => {
+    const y = scrollY, max = root.scrollHeight - innerHeight;
+    bar.style.setProperty("--p", max > 0 ? Math.min(1, y / max) : 0);
+    if (!REDUCE) { const h = $(".hero-in"); if (h) { h.style.setProperty("--py", Math.min(y, 600) * .18); h.style.setProperty("--po", Math.max(0, 1 - y / 700)); } }
+    tick = false; }); };
+  addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  document.addEventListener("click", e => {
+    const b = e.target.closest(".btn"); if (!b || REDUCE || b.disabled || b.getAttribute("aria-disabled") === "true") return;
+    const r = b.getBoundingClientRect(), s = Math.max(r.width, r.height) * 2, d = document.createElement("span");
+    d.className = "rip"; d.style.cssText = `width:${s}px;height:${s}px;left:${e.clientX - r.left - s / 2}px;top:${e.clientY - r.top - s / 2}px`;
+    b.appendChild(d); setTimeout(() => d.remove(), 650);
+  });
+
+  if (matchMedia("(pointer: fine)").matches && !REDUCE) {
+    let cur = null;
+    const reset = el => { if (el) { el.style.removeProperty("--rx"); el.style.removeProperty("--ry"); } };
+    document.addEventListener("pointermove", e => {
+      const el = e.target.closest && e.target.closest(".pcard,.social");
+      if (el !== cur) { reset(cur); cur = el; }
+      if (!el) return;
+      const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      el.style.setProperty("--rx", (-y * 7).toFixed(2) + "deg"); el.style.setProperty("--ry", (x * 9).toFixed(2) + "deg");
+    }, { passive: true });
+  }
+
+  const hb = $(".hero-bg");
+  if (hb && !REDUCE) {
+    const cv = document.createElement("canvas"); cv.className = "embers"; cv.setAttribute("aria-hidden", "true"); hb.appendChild(cv);
+    const g = cv.getContext("2d"); let w = 0, h = 0, vis = true, run = false;
+    const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * d; cv.height = h * d; g.setTransform(d, 0, 0, d, 0, 0); };
+    const mk = init => ({ x: Math.random() * w, y: init ? Math.random() * h : h + 10, s: 2 + (Math.random() * 4 | 0), v: .25 + Math.random() * .6, dr: (Math.random() - .5) * .3, a: .3 + Math.random() * .5, ph: Math.random() * 6.28 });
+    fit();
+    const ps = Array.from({ length: matchMedia("(max-width:860px)").matches ? 22 : 42 }, () => mk(true));
+    const frame = () => {
+      if (!vis) { run = false; return; } run = true;
+      g.clearRect(0, 0, w, h);
+      for (const p of ps) {
+        p.y -= p.v; p.x += p.dr + Math.sin(p.y / 40 + p.ph) * .25;
+        if (p.y < -10) Object.assign(p, mk(false));
+        const f = Math.max(0, Math.min(1, p.y / (h * .5)));
+        g.fillStyle = `rgba(255,${60 + p.s * 25},40,${(p.a * f).toFixed(2)})`; g.fillRect(p.x, p.y, p.s, p.s);
+      }
+      requestAnimationFrame(frame);
+    };
+    new ResizeObserver(fit).observe(cv);
+    new IntersectionObserver(en => { vis = en[0].isIntersecting; if (vis && !run) frame(); }).observe(cv);
+    frame();
+  }
 })();
 
 </script>
