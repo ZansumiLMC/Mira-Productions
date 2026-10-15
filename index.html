@@ -522,7 +522,7 @@ const SITE_CONFIG = {
     { title: "Modificación de AG 2 con permiso", description: 'El AG original es <a href="https://ko-fi.com/s/805d89cb11" target="_blank" rel="noopener noreferrer">aquí</a> (requisito para comprar este setup).', url: "https://ko-fi.com/s/6c7c36b426" }
   ],
   /* formEndpoint: servicio que envía el formulario directo al correo (ahora FormSubmit). Vacío = abre la app de correo */
-  contact: { email: "capibarastudios.eventos@gmail.com", formEndpoint: "https://formsubmit.co/ajax/zanjay444@gmail.com" },
+  contact: { email: "capibarastudios.eventos@gmail.com", formEndpoint: "https://formsubmit.co/ajax/capibarastudios.eventos@gmail.com" },
   launcher: { status: "beta", downloadUrl: "https://launcher.carbonzdev.me/updates/win/Mira-Setup-1.2.9-x64.exe" },
   news: NEWS,
   projects: [
@@ -713,16 +713,15 @@ try { init(); route(); } catch (err) { console.error(err); $("#v-inicio").hidden
     e.preventDefault(); if (!valid()) return;
     const { subject, body } = build();
     if (C.contact.formEndpoint) {
-      let why = "sin conexión con FormSubmit";
       try {
         const data = new FormData(f);
         data.append("_subject", subject); data.append("_replyto", data.get("correo")); data.append("_template", "table"); data.append("_captcha", "false");
         const r = await fetch(C.contact.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: data });
         const j = await r.json().catch(() => ({}));
         if (r.ok && j.success !== "false" && j.success !== false) { f.reset(); st.textContent = "¡Mensaje enviado! Te responderemos pronto."; return; }
-        why = j.message || ("error " + r.status); console.warn("FormSubmit:", r.status, j);
+        console.warn("FormSubmit:", r.status, j);
       } catch (err) { console.warn("FormSubmit:", err); }
-      st.textContent = "No se pudo enviar (" + why + "). Usa «Copiar mensaje» y mándalo a nuestro correo."; return;
+      st.textContent = "No pudimos enviar tu mensaje en este momento. Puedes usar «Copiar mensaje» y mandarlo a nuestro correo."; return;
     }
     location.href = `mailto:${C.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     st.textContent = "Se abrirá tu app de correo con el mensaje listo. Si no abre, usa «Copiar mensaje».";
