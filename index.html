@@ -62,9 +62,9 @@ nav#nav a:hover,nav#nav a[aria-current=page]{color:#fff}
 .hero-in>*{animation:rise .8s var(--ease) backwards;animation-delay:var(--d,0s)}
 .slogan{display:flex;align-items:center;gap:14px;font:600 .8rem var(--font);letter-spacing:.32em;text-transform:uppercase;margin:0 0 18px}.slogan::before{content:"";width:40px;height:2px;background:var(--red)}
 .mega{font:400 clamp(3.4rem,9vw,8rem)/.88 var(--disp);margin:0 0 .22em}.mega::after{display:none}
-.mega span{display:block;animation:reveal 1s var(--ease) backwards;animation-delay:var(--d)}
+.mega span{display:block;width:fit-content;animation:reveal 1s var(--ease) backwards;animation-delay:var(--d)}
 .mega span+span{font-size:.4em;letter-spacing:.08em;color:transparent;-webkit-text-stroke:2px #fff;margin-top:.1em}
-@keyframes reveal{from{opacity:0;transform:translateY(40%);clip-path:inset(0 0 100% 0)}}
+@keyframes reveal{from{opacity:0;transform:translateY(40%);}}
 .lead{max-width:46ch;font-size:1.15rem;color:var(--muted)}
 .scroll{position:absolute;z-index:2;left:5vw;bottom:18px;background:none;border:0;color:var(--muted);font:600 .75rem var(--font);letter-spacing:.3em;text-transform:uppercase;display:flex;align-items:center;gap:12px;cursor:pointer;min-height:44px}
 .scroll i{width:1px;height:42px;background:linear-gradient(var(--red),transparent);animation:drip 2s ease-in-out infinite}@keyframes drip{50%{transform:translateY(8px);opacity:.4}}
@@ -246,8 +246,10 @@ main{flex:1 0 auto;width:100%}
 .progress{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;transform-origin:left;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--red),var(--neon));box-shadow:0 0 12px var(--neon);pointer-events:none}
 .embers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero-in{transform:translateY(calc(var(--py,0)*1px));opacity:var(--po,1);will-change:transform}
-.mega span:first-child{background:linear-gradient(100deg,#fff 40%,#ffb3b3 50%,#fff 60%) 150% 0/250% 100% no-repeat;-webkit-background-clip:text;background-clip:text;color:transparent;animation:reveal 1s var(--ease) var(--d) backwards,shine 6s ease-in-out 1.6s infinite}
-@keyframes shine{0%,35%{background-position:150% 0}100%{background-position:-50% 0}}
+.mega span:first-child{animation:none}
+.mega span:first-child i{display:inline-block;font-style:normal;text-shadow:0 0 18px rgba(255,42,42,.55);animation:drop .7s var(--ease) calc(var(--d) + var(--k)*110ms) backwards,flick 5s linear calc(1.8s + var(--k)*.4s) infinite}
+@keyframes drop{from{opacity:0;transform:translateY(-60%) scale(1.5) rotate(-8deg);filter:blur(8px)}}
+@keyframes flick{0%,86%,100%{opacity:1}88%{opacity:.35}90%{opacity:1}93%{opacity:.5}95%{opacity:1}}
 .terrain i{animation:grow .9s var(--ease) calc(.3s + var(--i)*45ms) backwards,idle 5s ease-in-out calc(2.2s + var(--i)*140ms) infinite alternate}
 @keyframes idle{to{transform:scaleY(.9)}}
 .view.in h1::after{animation:line .9s var(--ease) .25s backwards}@keyframes line{from{width:0}}
@@ -262,9 +264,48 @@ main{flex:1 0 auto;width:100%}
 .pcard:hover .media::after{transform:translateX(120%)}
 .rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:rip .6s ease-out forwards;pointer-events:none}
 @keyframes rip{to{transform:scale(1);opacity:0}}
+
+/* ===== Carrusel: evita que la tarjeta parpadee al cambiar ===== */
+.nv-slide .lead-story{animation:neon 5s ease-in-out infinite!important}
+html,body{overflow-x:hidden}
+/* ===== Contacto (imagen a la izquierda, formulario a la derecha) ===== */
+.contact{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);gap:56px;align-items:start}
+.contact.no-img{grid-template-columns:1fr;max-width:760px}
+.contact-img{position:sticky;top:90px;display:grid;place-items:center;padding:24px}
+.contact-img::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(156,0,0,.35),transparent 70%);pointer-events:none}
+.contact-img img{position:relative;display:block;width:100%;max-width:420px;height:auto;max-height:70vh;object-fit:contain;filter:drop-shadow(0 0 18px rgba(255,42,42,.45))}
+.contact-info h1{margin-top:0}
+.cform{display:grid;gap:16px;margin-top:28px}
+.cform .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cform input,.cform textarea{width:100%;padding:18px 48px 18px 16px;background-color:#1d1d20;border:1px solid transparent;border-radius:14px;color:#fff;font:400 1rem var(--font);transition:border-color .25s,box-shadow .25s}
+.cform input{background-repeat:no-repeat;background-position:right 16px center;background-size:22px}
+.cform input[name=nombre]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M12 2a10 10 0 100 20 10 10 0 000-20zm0 4a3 3 0 110 6 3 3 0 010-6zm0 14a8 8 0 01-6-2.7c.1-2 4-3.1 6-3.1s5.9 1.1 6 3.1A8 8 0 0112 20z'/%3E%3C/svg%3E")}
+.cform input[name=correo]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M3 5h18a1 1 0 011 1v.5l-10 6.5L2 6.500V6a1 1 0 011-1zM2 9l10 6.500L22 9v9a1 1 0 01-1 1H3a1 1 0 01-1-1z'/%3E%3C/svg%3E")}
+.cform input[name=asunto]{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23888' d='M4 6h16v2H4zM4 11h16v2H4zM4 16h16v2H4z'/%3E%3C/svg%3E")}
+.cform input:focus,.fld.area:focus-within{outline:0;border-color:var(--neon);box-shadow:0 0 14px rgba(255,42,42,.35)}
+.fld.area{padding:12px 16px 8px;background:#1d1d20;border:1px solid transparent;border-radius:14px;transition:border-color .25s,box-shadow .25s}
+.fld.area label{display:block;font-size:.78rem;font-weight:700}
+.cform .area textarea{padding:6px 0 0;min-height:96px;background:transparent;border:0;border-radius:0;resize:vertical;outline:0}
+.cform b{color:var(--neon);font-weight:400}
+.cform .hint{margin:-8px 0 0 4px;font-size:.78rem;color:var(--muted)}
+.cform .row{margin:4px 0 0}
+.embed .media{width:100%}
+/* ===== Celulares: menos efectos pesados para que cargue fluido ===== */
+@media(max-width:860px),(pointer:coarse){
+  .contact{grid-template-columns:1fr;gap:32px}
+  .contact-img{position:static;padding:0}
+  .contact-img img{max-width:240px;max-height:160px}
+  .cform .two{grid-template-columns:1fr}
+  .lead-story,.nv-slide .lead-story{animation:none!important}
+  .top{backdrop-filter:none;background:rgba(10,10,10,.97)}
+  .mega span+span,.logo img,.intro-in img{filter:none}
+  .hero-bg.has-img::after{animation:none}
+  .intro-in::before,.intro-in::after{display:none}
+}
 </style>
 </head>
 <body class="locked">
+<noscript><style>.intro{display:none}body.locked{overflow:auto}</style><p style="padding:24px">Activa JavaScript para ver esta página.</p></noscript>
 <div class="intro" id="intro" role="dialog" aria-label="Bienvenida">
   <div class="intro-in">
     <img src="assets/logotrans.png" alt="Mira Productions" onerror="this.remove()">
@@ -286,7 +327,7 @@ main{flex:1 0 auto;width:100%}
       <div class="hero-bg" aria-hidden="true"><div class="terrain"></div></div>
       <div class="hero-in">
         <p class="slogan" data-slogan style="--d:.1s"></p>
-        <h1 class="mega" aria-label="Mira Productions"><span style="--d:.2s">Mira</span><span style="--d:.34s">Productions</span></h1>
+        <h1 class="mega" aria-label="Mira Productions"><span style="--d:.2s" aria-hidden="true"><i style="--k:0">M</i><i style="--k:1">i</i><i style="--k:2">r</i><i style="--k:3">a</i></span><span style="--d:.34s">Productions</span></h1>
         <p class="lead" data-desc style="--d:.55s"></p>
         <div class="row" style="--d:.7s"><a class="btn" href="#proyectos">Ver proyectos</a><a class="btn ghost" href="#servicios">Servicios</a></div>
       </div>
@@ -315,26 +356,32 @@ main{flex:1 0 auto;width:100%}
   </section>
 
   <section class="view" id="v-contacto" hidden>
-    <div class="wrap narrow"><h1>Contacto</h1>
-      <p class="statement">Hablemos de tu proyecto.</p>
-      <p>Si tienes una idea para tu evento, necesitas una modificación a tu medida o quieres conocer cómo trabajamos, escríbenos. En Mira Productions atendemos cada solicitud de forma personalizada: revisamos tu propuesta, evaluamos su alcance y te respondemos con un plan claro para llevarla a cabo.</p>
-      <p>Para ayudarte con mayor rapidez, te recomendamos incluir en tu mensaje:</p>
-      <ul class="facts tips">
-        <li>Una descripción de tu idea u objetivo.</li>
-        <li>El servicio que necesitas: modificaciones, creación, logística, producción, postproducción o realización del evento.</li>
-        <li>La fecha estimada y el número aproximado de participantes.</li>
-        <li>Referencias o ejemplos de lo que tienes en mente, si los hay.</li>
-      </ul>
-      <h2>Correo electrónico</h2>
-      <div class="mailbox">
-        <button class="mail-addr" type="button" id="mail-addr" data-copy aria-label="Copiar correo electrónico"></button>
-        <button class="btn" type="button" id="copy-mail" data-copy>Copiar correo</button>
+    <div class="wrap contact">
+      <div class="contact-img"><img src="assets/logoori.png" alt="Mira Productions" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='assets/logopage.png'}else{this.closest('.contact').classList.add('no-img');this.parentNode.remove()}"></div>
+      <div class="contact-info">
+        <h1>Contacto</h1>
+        <p>Si tienes una idea para tu evento, necesitas una modificación a tu medida o quieres conocer cómo trabajamos, escríbenos. En Mira Productions atendemos cada solicitud de forma personalizada: revisamos tu propuesta, evaluamos su alcance y te respondemos con un plan claro para llevarla a cabo.</p>
+        <p>¿Tienes una idea y no sabes por dónde empezar? ¡Contáctanos y trabajemos juntos!</p>
+        <p>Contacto:</p>
+        <div class="mailbox">
+          <button class="mail-addr" type="button" id="mail-addr" data-copy aria-label="Copiar correo electrónico"></button>
+          <button class="btn ghost" type="button" id="copy-mail" data-copy>Copiar correo</button>
+          <a class="btn ghost" href="https://discord.com/invite/kjtfQrsrtH" target="_blank" rel="noopener noreferrer">Discord</a>
+        </div>
+        <span class="skip" id="copy-status" role="status"></span>
+        <form class="cform" id="cform" novalidate>
+          <div class="two">
+            <input name="nombre" required autocomplete="name" placeholder="Nombre *" aria-label="Nombre">
+            <input name="correo" type="email" required autocomplete="email" inputmode="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Correo electrónico *" aria-label="Correo electrónico">
+          </div>
+          <input name="asunto" required placeholder="Asunto *" aria-label="Asunto">
+          <div class="fld area"><label for="f-msg">Mensaje <b>*</b></label><textarea id="f-msg" name="mensaje" rows="4" required placeholder="Escribe tu mensaje para nosotros aquí."></textarea></div>
+          <p class="hint">Recuerda incluir tu idea, el servicio que necesitas, la fecha estimada y el número de participantes.</p>
+          <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+          <div class="row"><button class="btn" type="submit">Enviar mensaje</button><button class="btn ghost" type="button" id="copy-msg">Copiar mensaje</button></div>
+          <p class="meta" id="cform-status" role="status"></p>
+        </form>
       </div>
-      <span class="skip" id="copy-status" role="status"></span>
-      <h2>Discord</h2>
-      <p>Si prefieres una conversación más directa, también puedes escribirnos por nuestro servidor de Discord.</p>
-      <div class="contact-direct"><a class="btn ghost" href="https://discord.com/invite/kjtfQrsrtH" target="_blank" rel="noopener noreferrer">Contactar por Discord</a></div>
-      <p class="meta">Responderemos tu mensaje lo antes posible.</p>
     </div>
   </section>
 
@@ -442,6 +489,11 @@ const NEWS = [
   */
 ];
 
+/* =====================================================================
+   CONFIGURACIÓN DEL SITIO
+   Textos, enlaces, proyectos, servicios y tienda se editan aquí.
+   No hace falta tocar nada más abajo.
+   ===================================================================== */
 const SITE_CONFIG = {
   brand: { name: "Mira Productions", slogan: "Minecraft Events Creators",
     description: "Estudio de Minecraft Java dedicado a la creación de modificaciones propias a tu gusto." },
@@ -469,7 +521,8 @@ const SITE_CONFIG = {
     { title: "Setup oficial de The Island", description: "Gracias TheDoxito por el setup!", url: "https://ko-fi.com/s/e1d4f239ae" },
     { title: "Modificación de AG 2 con permiso", description: 'El AG original es <a href="https://ko-fi.com/s/805d89cb11" target="_blank" rel="noopener noreferrer">aquí</a> (requisito para comprar este setup).', url: "https://ko-fi.com/s/6c7c36b426" }
   ],
-  contact: { email: "capibarastudios.eventos@gmail.com" },
+  /* formEndpoint: servicio que envía el formulario directo al correo (ahora FormSubmit). Vacío = abre la app de correo */
+  contact: { email: "capibarastudios.eventos@gmail.com", formEndpoint: "https://formsubmit.co/ajax/capibarastudios.eventos@gmail.com" },
   launcher: { status: "beta", downloadUrl: "https://launcher.carbonzdev.me/updates/win/Mira-Setup-1.2.9-x64.exe" },
   news: NEWS,
   projects: [
@@ -496,11 +549,11 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": 
 const safeUrl = u => /^https?:\/\//i.test(u) ? u : "";
 const EXT = 'target="_blank" rel="noopener noreferrer"';
 const ICONS = {
+  kofi: "M3 7h14v7a4 4 0 01-4 4H7a4 4 0 01-4-4zM17 8h2a2 2 0 010 5h-2",
   x: "M18.2 2H21l-6.5 7.5L22 22h-6l-4.7-6.2L5.8 22H3l7-8L2 2h6.1l4.3 5.7zM17.1 20h1.6L7 3.9H5.3z",
   discord: "M20 5a17 17 0 00-4.2-1.3l-.5 1a15 15 0 00-4.6 0l-.5-1A17 17 0 006 5C3.5 8.800 2.800 12.500 3.200 16.200a17 17 0 005.100 2.600l1.100-1.800c-.6-.2-1.200-.5-1.700-.9l.4-.3a12 12 0 0010.200 0l.4.300c-.5.400-1.100.700-1.700.900l1.100 1.800a17 17 0 005.100-2.600C21.400 11.900 20.300 8.200 20 5zM9.500 14c-.8 0-1.500-.8-1.500-1.700s.7-1.700 1.500-1.700 1.500.8 1.500 1.700-.7 1.700-1.500 1.700zm5 0c-.8 0-1.500-.8-1.500-1.700s.7-1.700 1.500-1.700 1.500.8 1.500 1.700-.7 1.700-1.500 1.700z",
   youtube: "M22 8.200a3 3 0 00-2.100-2.100C18 5.600 12 5.600 12 5.600s-6 0-7.900.5A3 3 0 002 8.200C1.500 10 1.500 12 1.500 12s0 2 .5 3.800a3 3 0 002.100 2.100c1.900.5 7.900.5 7.900.5s6 0 7.900-.5a3 3 0 002.100-2.100c.5-1.800.5-3.800.5-3.800s0-2-.5-3.800zM10 15V9l5.200 3z",
-  tiktok: "M16.600 3c.3 2.300 1.700 3.800 4 3.900v3a7 7 0 01-4-1.300v6.300a6 6 0 11-6-6c.3 0 .7 0 1 .1v3.100a3 3 0 102 2.800V3z",
-  kofi: "M3 7h14v7a4 4 0 01-4 4H7a4 4 0 01-4-4zM17 8h2a2 2 0 010 5h-2"
+  tiktok: "M16.600 3c.3 2.300 1.700 3.800 4 3.900v3a7 7 0 01-4-1.300v6.300a6 6 0 11-6-6c.3 0 .7 0 1 .1v3.100a3 3 0 102 2.800V3z"
 };
 const SOCIALS = [["x", "X"], ["discord", "Discord"], ["youtube", "YouTube"], ["tiktok", "TikTok"]];
 const icon = k => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONS[k]}"/></svg>`;
@@ -636,12 +689,49 @@ document.addEventListener("click", e => { const a = e.target.closest("a[aria-dis
   if (C.heroImage) { hb.style.setProperty("--hero", `url("${C.heroImage.replace(/"/g, "")}")`); hb.classList.add("has-img"); }
   if (matchMedia("(pointer: fine)").matches && !REDUCE) $(".hero").addEventListener("pointermove", e => { const r = e.currentTarget.getBoundingClientRect(); hb.style.setProperty("--mx", e.clientX - r.left + "px"); hb.style.setProperty("--my", e.clientY - r.top + "px"); });
 })();
-init(); route();
+try { init(); route(); } catch (err) { console.error(err); $("#v-inicio").hidden = false; $("#intro").classList.add("gone"); document.body.classList.remove("locked"); }
 (function () { let x0 = null, host = null;
   document.addEventListener("touchstart", e => { host = e.target.closest(".nv-host"); x0 = host ? e.touches[0].clientX : null; }, { passive: true });
   document.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) goNews(host, dx < 0 ? 1 : -1); }, { passive: true });
 })();
 
+
+/* ---- Formulario de contacto ----
+   Sin formEndpoint abre la app de correo con asunto y mensaje listos.
+   Con formEndpoint (Formspree, FormSubmit, etc.) envía directo desde la página. */
+(function () {
+  const f = $("#cform"), st = $("#cform-status");
+  const build = () => {
+    const d = new FormData(f);
+    return { subject: d.get("asunto"), body: `Nombre: ${d.get("nombre")}\nCorreo: ${d.get("correo")}\n\n${d.get("mensaje")}` };
+  };
+  const mail = f.correo;
+  mail.addEventListener("input", () => mail.setCustomValidity(""));
+  mail.addEventListener("invalid", () => mail.setCustomValidity(mail.validity.valueMissing ? "Escribe tu correo para poder responderte." : "Escribe un correo válido, por ejemplo nombre@correo.com."));
+  const valid = () => f.checkValidity() || (f.reportValidity(), false);
+  f.addEventListener("submit", async e => {
+    e.preventDefault(); if (!valid()) return;
+    const { subject, body } = build();
+    if (C.contact.formEndpoint) {
+      try {
+        const data = new FormData(f);
+        data.append("_subject", subject); data.append("_replyto", data.get("correo")); data.append("_template", "table"); data.append("_captcha", "false");
+        const r = await fetch(C.contact.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: data });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.success !== "false" && j.success !== false) { f.reset(); st.textContent = "¡Mensaje enviado! Te responderemos pronto."; return; }
+      } catch (_) {}
+      st.textContent = "No se pudo enviar. Usa «Copiar mensaje» y mándalo a nuestro correo."; return;
+    }
+    location.href = `mailto:${C.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    st.textContent = "Se abrirá tu app de correo con el mensaje listo. Si no abre, usa «Copiar mensaje».";
+  });
+  $("#copy-msg").addEventListener("click", () => {
+    if (!valid()) return;
+    const { subject, body } = build(), txt = `Para: ${C.contact.email}\nAsunto: ${subject}\n\n${body}`;
+    if (!navigator.clipboard) { st.textContent = "Tu navegador no permite copiar."; return; }
+    navigator.clipboard.writeText(txt).then(() => st.textContent = "Mensaje copiado.", () => st.textContent = "No se pudo copiar.");
+  });
+})();
 
 /* ---- Aparición al hacer scroll ---- */
 (function () {
@@ -734,7 +824,7 @@ init(); route();
   }
 
   const hb = $(".hero-bg");
-  if (hb && !REDUCE) {
+  if (hb && !REDUCE && matchMedia("(pointer: fine)").matches) {
     const cv = document.createElement("canvas"); cv.className = "embers"; cv.setAttribute("aria-hidden", "true"); hb.appendChild(cv);
     const g = cv.getContext("2d"); let w = 0, h = 0, vis = true, run = false;
     const fit = () => { const d = Math.min(devicePixelRatio || 1, 2); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * d; cv.height = h * d; g.setTransform(d, 0, 0, d, 0, 0); };
